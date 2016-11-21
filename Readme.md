@@ -8,6 +8,7 @@ This is the first website I ever fully developed (so it took around 3x as long a
 Processing is a "flexible software sketchbook and a language for learning how to code within the context of the visual arts" —[Processing.org](processing.org).  There's a javascript library, p5.js, which I used to transfer some of my projects online so others can see and interact with them using GitHub pages.  
 * [Primitives](https://dankrajnak.github.io/primitives)
 * [Meta-Sphere](https://dankrajnak.github.io/meta-sphere)
+* [Meta-Sphere-With-Springs](https://dankrajnak.github.io/meta-sphere-with-springs)
 
 ### Twitter Bots
 ...coming soon hopefully.
