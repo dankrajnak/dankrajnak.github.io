@@ -12,7 +12,7 @@ Processing is,
 There's a javascript library, p5.js, which I used to transfer some of my projects online so others can see and interact with them using GitHub pages.  
 * [Primitives](https://dankrajnak.github.io/primitives)
 * [Meta-Sphere](https://dankrajnak.github.io/meta-sphere)
-* [Meta-Sphere-With-Springs](https://dankrajnak.github.io/meta-sphere)
+* [Meta-Sphere-With-Springs](https://dankrajnak.github.io/meta-sphere-with-springs)
 
 ### Twitter Bots
 ...coming soon hopefully.
