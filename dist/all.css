@@ -76,6 +76,8 @@ p, a {
     text-decoration: none; }
     .card-deck a:hover {
       text-decoration: underline; }
+  .card-deck .card {
+    box-shadow: 5px 5px 10px -5px #111; }
 
 #contact h3 {
   text-align: center; }
@@ -86,3 +88,10 @@ p, a {
 #contact .btn-primary {
   background-color: #CCB255;
   border-color: #CCB255; }
+
+footer {
+  background-color: #111;
+  color: #F6F6F6;
+  padding: 10px;
+  text-align: right;
+  font-size: .8em; }

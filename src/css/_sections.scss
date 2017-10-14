@@ -30,7 +30,7 @@
 }
 
 .card-deck{
-        margin-top: 30px;
+    margin-top: 30px;
     a{
         color: $background-color;
         text-decoration: none;
@@ -38,6 +38,14 @@
             text-decoration: underline;
         }
     }   
+    .card{
+        box-shadow: 5px 5px 10px -5px $background-color;
+//        &:hover {
+//            box-shadow: 10px 10px 10px -5px $background-color;
+//            transform: translate(-5px, -5px);
+//
+//        }
+    }
 }
 
 #contact{
