@@ -5,9 +5,6 @@ let height = +canvas.style('height').slice(0, -2);
 
 canvas.attr('width', width).attr('height', height);
 
-console.log(d3.select('.banner .container-fluid').style('width', width).style('height', height));
-
-
 const container = d3.selectAll('.banner, #mainNav');
 const context = canvas.node().getContext('2d');
 
@@ -24,8 +21,6 @@ if (width > height) {
     up = (height - (right - left)) / 2;
     bottom = up + (right - left);
 }
-
-console.log(up, bottom, left, right);
 
 let originalSquare = [[left, up], [right, up], [right, bottom], [left, bottom]];
 let square = []
