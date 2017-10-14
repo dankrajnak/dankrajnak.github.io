@@ -1,67 +1,244 @@
 <!doctype html>
-<html>
-  <head>
+<html class="no-js" lang="">
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Daniel Krajnak by dankrajnak</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Daniel Krajnak</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/a519a626be.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="dist/all.min.css">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Daniel Krajnak</h1>
-        <p>I make things with computers</p>
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
 
 
-        <p class="view"><a href="https://github.com/dankrajnak">View My GitHub Profile</a></p>
+    <!--    Navbar-->
 
-      </header>
-      <section>
-        <h2>
-<a id="my-code-hub" class="anchor" href="#my-code-hub" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>My Code Hub</h2>
+    <nav class="navbar navbar-expand-md fixed-top navbar-inverse" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="">Daniel Krajnak</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#art">Art</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<p>I am in my last few semesters studying computer science at the Ohio State University, but I'm just starting my career making cool stuff with computers.  As time goes on my hope is that this page will fill up more and more with projects that I'm proud to share.</p>
+    <header class="banner container-fluid d-flex">
+        <canvas id="perspective"></canvas>
+        <div class="row w-100 align-items-center justify-content-start">
+            <div class='col-4'>
+                <h1>Let's build something cool.</h1>
+            </div>
+        </div>
+    </header>
 
-<h3>
-<a id="rierastudioartcom" class="anchor" href="#rierastudioartcom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rierastudioart.com</h3>
+    <section id="portfolio">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h3> I specialize in making engaging online experiences.</h3>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="card-deck">
+                    <div class="card">
+                        <a href="http://www.rierastudioart.com">
+                        <img class="card-img-top" src="img/riera.jpeg" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="http://www.rierastudioart.com">
+                                <h4 class="card-title">Riera Studio Art</h4>
+                            </a>
+                            <p class="card-text">A site developed for an art studio based in Havana, Cuba which focuses on outsider art and art brut.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://www.aptesummit.org">
+                        <img class="card-img-top" src="img/apte.png" alt="APTE Summit">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://www.aptesummit.org">
+                                <h4 class="card-title">APTE Summit</h4>
+                            </a>
+                            <p class="card-text">Alleviating Poverty Through Entrepreneurship is a student group at Ohio State University which seeks to energize the greater community about social entrepreneurship and social enterprise.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://jb-set.herokuapp.com">
+                        <img class="card-img-top" src="img/jbset.png" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://jb-set.herokuapp.com">
+                                <h4 class="card-title">JB SET</h4>
+                            </a>
+                            <p class="card-text">A web application to collect and display data from national and local entities within CISV, an international, peace-education organization. It might be a little slow—<strong>the project has ended and  is running on a free server.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
 
-<p>In June 2016, I travelled to Havana, Cuba to work with a local artist, Samuel Riera and his assistant, Derbis Campos.  I worked with them everyday to design and code a website to showcase the work they promote to the world outside of Cuba. I developed a custom php framework to handle including partials on every page, and also to generate all of the pages for the artists and exhibitions.  This is the first website I ever fully developed.  <a href="http://www.rierastudioart.com">Rierastudioart.com</a></p>
+    <section id="art">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h3> I also make art to display on websites or projected at public events.</h3>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="card-deck">
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/ColorWheel">
+                        <img class="card-img-top" src="img/colorwheel.png" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/ColorWheel">
+                                <h4 class="card-title">APTE Color Wheel</h4>
+                            </a>
+                            <p class="card-text">A interactive version of a projection I'm making for the 2018 APTE Summit conference.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/APTEVoronoi">
+                        <img class="card-img-top" src="img/voronoi.png" alt="APTE Summit">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/APTEVoronoi">
+                                <h4 class="card-title">APTE Voronoi</h4>
+                            </a>
+                            <p class="card-text">A projection I made for the 2017 APTE Summit conference </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/primitives">
+                        <img class="card-img-top" src="img/primitives.png" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/primitives">
+                                <h4 class="card-title">Primitives</h4>
+                            </a>
+                            <p class="card-text"> One of my first interactive art projects.</p>
+                        </div>
+                    </div>
+                </div>
 
-<h3>
-<a id="generative-art" class="anchor" href="#generative-art" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generative Art</h3>
+                <div class="card-deck">
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/meta-sphere-with-springs">
+                        <img class="card-img-top" src="img/sphere.png" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/meta-sphere-with-springs">
+                                <h4 class="card-title">Sphere</h4>
+                            </a>
+                            <p class="card-text">A generative art piece for a class at Ohio State.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/redbluemap">
+                        <img class="card-img-top" src="img/redblue.png" alt="APTE Summit">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/redbluemap">
+                                <h4 class="card-title">Red Blue Map</h4>
+                            </a>
+                            <p class="card-text">An interactive element I made for APTE's website.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="https://dankrajnak.github.io/Perspective">
+                        <img class="card-img-top" src="img/perspective.png" alt="Riera Studio Art">
+                        </a>
+                        <div class="card-body">
+                            <a href="https://dankrajnak.github.io/Perspective">
+                                <h4 class="card-title">Perspective</h4>
+                            </a>
+                            <p class="card-text">An interactive element I created for personal use.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
 
-<p>These are various art projects I've made since I was just beginning to learn how to code to just recently. </p>
+    <section id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h3> I'm from Columbus, Ohio.</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <p>I like art and tech.  I'm not sure what to put here.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h3> Contact:</h3>
+                </div>
+            </div>
 
-<ul>
-<li><a href="https://dankrajnak.github.io/primitives">Primitives</a></li>
-<li><a href="https://dankrajnak.github.io/meta-sphere">Meta-Sphere</a></li>
-<li><a href="https://dankrajnak.github.io/meta-sphere-with-springs">Meta-Sphere-With-Springs</a></li>
-<li><a href="https://dankrajnak.github.io/redbluemap">Red Blue Map</a></li>
-<li><a href="https://dankrajnak.github.io/ColorWheel">APTE ColorWheel</a></li>
-<li><a href="https://dankrajnak.github.io/APTEVoronoi">APTE Voronoi</a></li>
-</ul>
+            <div class="row justify-content-around">
+                <div class="col">
+                    <form action="https://formspree.io/dan.krajnak@gmail.com" method="POST">
+                        <div class="form-group">
+                            <h5>Name:</h5>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <h5>Email:</h5>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <h5>Message:</h5>
+                            <textarea name="message" class="form-control" rows="5"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Send">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<h3>
-<a id="twitter-bots" class="anchor" href="#twitter-bots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Twitter Bots</h3>
 
-<p>...coming soon hopefully.</p>
 
-<h3>
-<a id="school-assignments" class="anchor" href="#school-assignments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>School Assignments</h3>
 
-<p>I've made javascript calculators, multi-threaded buffered queues, recursive descent parsers, huge complicated database schemas, sorting algorithms in assembly, and many other things which for academic integrity reasons, I can't share online.  Let me know if you would like to see some of my work.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+
+
+    <!--    Jquery, Bootstrap, d3-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="dist/all.min.js"></script>
+
+</body>
+
 </html>

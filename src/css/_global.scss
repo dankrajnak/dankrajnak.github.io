@@ -1,0 +1,18 @@
+html,
+body {
+    margin: 0;
+}
+
+section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+h1, h2, h3, h4, h5{
+    @include display-font();
+    font-weight: 500;
+}
+
+p, a {
+    @include sans-serif();
+}
