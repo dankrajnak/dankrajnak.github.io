@@ -6,7 +6,8 @@ var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
-var browserSync = require('browser-sync').create();
+var imagemin = require('gulp-imagemin');
+
 
 
 
@@ -40,7 +41,7 @@ gulp.task('buildAllJS', function(){
         .pipe(concat('all.js'))    
         .pipe(babel())
         .pipe(gulp.dest('build/js'));
-})
+});
 
 gulp.task('distJS', function(){
     return gulp.src(['vendor/**/*.js', 'build/js/all.js'])
@@ -49,7 +50,13 @@ gulp.task('distJS', function(){
         .pipe(rename('all.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
-})
+});
+
+gulp.task('images', function(){
+  return gulp.src('img/**/*.+(png|jpg|jpeg|gif|svg)')
+  .pipe(imagemin())
+  .pipe(gulp.dest('dist/images'))
+});
 
 gulp.task('watch', function(){
     runSequence('buildJS', 'buildAllJS', 'distJS', 'buildCSS', 'distCSS');
