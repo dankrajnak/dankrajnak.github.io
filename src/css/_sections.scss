@@ -1,5 +1,10 @@
 #portfolio{
     background-color: $primary-color;
+        @include animationName(moveUp);
+        @include animationDuration(1s);
+        @include animationTimingFunction(ease-out);
+        @include animationDelay(1.5s)
+        animation-fill-mode: both;
     h3{
         color: $secondary-color;
         text-align: center;
@@ -49,6 +54,7 @@
 }
 
 #contact{
+    background-color: $secondary-color;
     h3{
         text-align: center;
     }

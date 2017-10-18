@@ -6,8 +6,12 @@
     h1 {
         color: #DDD;
         text-align: center;
-        opacity: .8;
-        @include display-font;
+        @include display-font();
+        @include animationName(fadeIn80);
+        @include animationDuration(2s);
+        @include animationTimingFunction(ease-out);
+        @include animationDelay(.5s)
+        animation-fill-mode: both;
     }
     canvas {
         position: absolute;

@@ -1,9 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand|Open-Sans');
 
-@mixin display-font(){
+@mixin display-font() {
     font-family: 'Quicksand', sans-serif;
 }
 
-@mixin sans-serif(){
+@mixin sans-serif() {
     font-family: 'Open Sans', sans-serif;
+}
+
+
+//Animation help.
+@mixin animationName($name) {
+    -webkit-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin animationDuration($duration){
+    -webkit-animation-duration: $duration;
+  animation-duration: $duration;
+}
+
+@mixin animationDelay($delay){
+    -webkit-animation-delay: $delay;
+    animation-delay: $delay;
+}
+
+@mixin animationTimingFunction($function){
+    animation-timing-function: $function;
+    -webkit-animation-timing-function: $function;
 }

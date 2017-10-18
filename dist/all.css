@@ -1,7 +1,48 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand|Open-Sans");
+@keyframes fadeIn80 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9); }
+  100% {
+    opacity: .8;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes fadeIn100 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes moveUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate(0, 5%) scale(0.95);
+    -moz-transform: translate(0, 5%) scale(0.95);
+    -ms-transform: translate(0, 5%) scale(0.95);
+    transform: translate(0, 5%) scale(0.95); }
+  100% {
+    opacity: 1; } }
+
 html,
 body {
   margin: 0; }
+
+body {
+  background-color: #111; }
 
 section {
   padding-top: 60px;
@@ -36,8 +77,16 @@ p, a {
   .banner h1 {
     color: #DDD;
     text-align: center;
-    opacity: .8;
-    font-family: 'Quicksand', sans-serif; }
+    font-family: 'Quicksand', sans-serif;
+    -webkit-animation-name: fadeIn80;
+    animation-name: fadeIn80;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: both; }
   .banner canvas {
     position: absolute;
     z-index: -1;
@@ -47,7 +96,16 @@ p, a {
     height: 100%; }
 
 #portfolio {
-  background-color: #CCB255; }
+  background-color: #CCB255;
+  -webkit-animation-name: moveUp;
+  animation-name: moveUp;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+  animation-fill-mode: both; }
   #portfolio h3 {
     color: #F6F6F6;
     text-align: center; }
@@ -79,15 +137,15 @@ p, a {
   .card-deck .card {
     box-shadow: 5px 5px 10px -5px #111; }
 
-#contact h3 {
-  text-align: center; }
-
-#contact .form-control:active, #contact .form-control:focus {
-  border-color: #CCB255; }
-
-#contact .btn-primary {
-  background-color: #CCB255;
-  border-color: #CCB255; }
+#contact {
+  background-color: #F6F6F6; }
+  #contact h3 {
+    text-align: center; }
+  #contact .form-control:active, #contact .form-control:focus {
+    border-color: #CCB255; }
+  #contact .btn-primary {
+    background-color: #CCB255;
+    border-color: #CCB255; }
 
 footer {
   background-color: #111;
