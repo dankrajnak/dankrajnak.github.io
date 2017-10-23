@@ -10,10 +10,15 @@
         @include animationName(fadeIn80);
         @include animationDuration(2s);
         @include animationTimingFunction(ease-out);
-        @include animationDelay(.5s)
+        @include animationDelay(1s)
         animation-fill-mode: both;
     }
     canvas {
+        @include animationName(fadeIn80);
+        @include animationDuration(2s);
+        @include animationTimingFunction(ease-out);
+        @include animationDelay(.5s)
+        animation-fill-mode: both;
         position: absolute;
         z-index: -1;
         top: 0;

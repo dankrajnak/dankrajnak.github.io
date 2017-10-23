@@ -84,27 +84,25 @@ p, a {
     animation-duration: 2s;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out;
-    -webkit-animation-delay: 0.5s;
-    animation-delay: 0.5s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
     animation-fill-mode: both; }
   .banner canvas {
+    -webkit-animation-name: fadeIn80;
+    animation-name: fadeIn80;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
     position: absolute;
     z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%; }
-
-section {
-  -webkit-animation-name: moveUp;
-  animation-name: moveUp;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  -webkit-animation-timing-function: ease-out;
-  -webkit-animation-delay: 1.5s;
-  animation-delay: 1.5s;
-  animation-fill-mode: both; }
 
 #portfolio {
   background-color: #CCB255; }
