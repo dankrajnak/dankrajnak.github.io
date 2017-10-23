@@ -8,15 +8,15 @@
         text-align: center;
         @include display-font();
         @include animationName(fadeIn80);
-        @include animationDuration(2s);
+        @include animationDuration(1.5s);
         @include animationTimingFunction(ease-out);
-        @include animationDelay(1s)
+        @include animationDelay(1.5s)
         animation-fill-mode: both;
     }
     canvas {
-        @include animationName(fadeIn80);
-        @include animationDuration(2s);
-        @include animationTimingFunction(ease-out);
+        @include animationName(fadeIn100);
+        @include animationDuration(1s);
+        @include animationTimingFunction(ease-in);
         @include animationDelay(.5s)
         animation-fill-mode: both;
         position: absolute;
