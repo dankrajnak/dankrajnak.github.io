@@ -38,7 +38,7 @@ originalSquare.forEach(function (point) {
 });
 
 var depth = 60;
-var maxSquareDisplacement = 100;
+var maxSquareDisplacement = 60;
 var lineColor = '#CCB255';
 var background = '#111';
 var lineWidth = 3;

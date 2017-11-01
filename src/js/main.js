@@ -30,7 +30,7 @@ originalSquare.forEach((point) => {
 })
 
 const depth = 60;
-const maxSquareDisplacement = 100;
+const maxSquareDisplacement = 60;
 const lineColor = '#CCB255';
 const background = '#111';
 const lineWidth = 3
