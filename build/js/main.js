@@ -1,4 +1,10 @@
-'use strict';
+"use strict";
+
+var typewriterText = ["Let's build something cool.", "Let's build something interesting.", "Let's build something sick."];
+var typewriter = new Typewriter(typewriterText, document.getElementById('typewriter'));
+setTimeout(function () {
+    return typewriter.play();
+}, 500);
 
 var canvas = d3.select('#perspective');
 

@@ -1,3 +1,8 @@
+let typewriterText = ["Let's build something cool.", "Let's build something interesting.", "Let's build something sick."]
+let typewriter = new Typewriter(typewriterText, document.getElementById('typewriter'));
+setTimeout(()=>typewriter.play(), 500);
+
+
 const canvas = d3.select('#perspective');
 
 let width = +canvas.style('width').slice(0, -2); //slice out 'px'
