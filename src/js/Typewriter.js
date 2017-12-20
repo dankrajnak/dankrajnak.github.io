@@ -195,7 +195,8 @@ class Typewriter {
             let mistake = this._getMistakeCharacter(character);
             this._lengthAfterDelay++;
             this._delay(() => {
-                this._currentText = this._currentText.concat(mistake);
+                if(mistake)
+                    this._currentText = this._currentText.concat(mistake);
                 this._displayCurrentText();
             });
             this.pause(200, 100);
@@ -333,8 +334,13 @@ class Typewriter {
                 }
             }
         }
-        //As a default, just return the given character.
-        return character;
+        
+         //As a default, just return the given character.
+        if(character)
+            return character;
+        //Or a space if that character is undefined.
+        return ' '
+        
     }
 
 

@@ -26,6 +26,8 @@ perspective.lineWeight = 2;
 perspective.background = '#111'; //dark grey
 perspective.lineColor = '#CCB255'; //gold
 
+console.log(perspective.leftTopCorner);
+
 //Ok, this is a mess.  Need to add some functionality to wanderer to abstract away these calculations.
 let wanderLeftTopCorner = [Math.max(0, perspective.leftTopCorner[0]-perspective.boxWidth), Math.max(0, perspective.leftTopCorner[1] - perspective.boxWidth)];
 let wanderer = new Wanderer(Math.min(perspective.boxWidth*3, width-wanderLeftTopCorner[0]), 

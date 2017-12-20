@@ -223,7 +223,7 @@ var Typewriter = function () {
                 var mistake = this._getMistakeCharacter(character);
                 this._lengthAfterDelay++;
                 this._delay(function () {
-                    _this2._currentText = _this2._currentText.concat(mistake);
+                    if (mistake) _this2._currentText = _this2._currentText.concat(mistake);
                     _this2._displayCurrentText();
                 });
                 this.pause(200, 100);
@@ -374,8 +374,11 @@ var Typewriter = function () {
                     }
                 }
             }
+
             //As a default, just return the given character.
-            return character;
+            if (character) return character;
+            //Or a space if that character is undefined.
+            return ' ';
         }
     }, {
         key: "isTyping",
