@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Quicksand|Open-Sans");
+@import url("https://fonts.googleapis.com/css?family=Expletus+Sans|Open-Sans");
 @keyframes fadeIn80 {
   0% {
     opacity: 0;
@@ -49,7 +49,8 @@ section {
   padding-bottom: 60px; }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Helvetica Neue", cursive;
+  font-weight: 200;
   font-weight: 500; }
 
 p, a {
@@ -57,9 +58,11 @@ p, a {
 
 #mainNav {
   border: none;
-  position: absolute; }
+  position: absolute;
+  background-color: #111; }
   #mainNav .navbar-brand {
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Helvetica Neue", cursive;
+    font-weight: 200;
     font-weight: 200;
     color: #CCB255; }
   #mainNav .nav-item a {
@@ -70,28 +73,20 @@ p, a {
     color: #F6F6F6; }
 
 .banner {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  cursor: none; }
+  display: flex;
+  justify-content: center; }
   .banner h1 {
-    color: white;
-    padding-left: 50px;
-    font-family: 'Quicksand', sans-serif; }
+    padding-bottom: 5%;
+    align-self: flex-end;
+    text-align: center;
+    color: #F5F5F5;
+    font-family: "Helvetica Neue", cursive;
+    font-weight: 200; }
     .banner h1:after {
       content: "|";
       font-weight: 400;
       animation: blink 500ms ease-in-out infinite alternate; }
   .banner canvas {
-    -webkit-animation-name: fadeIn100;
-    animation-name: fadeIn100;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    animation-timing-function: ease-in;
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation-delay: 0.5s;
-    animation-delay: 0.5s;
-    animation-fill-mode: both;
     position: absolute;
     z-index: -1;
     top: 0;
@@ -117,8 +112,11 @@ p, a {
   100% {
     opacity: 1; } }
 
+header {
+  height: 800px; }
+
 #portfolio {
-  background-color: #CCB255; }
+  background-color: #111; }
   #portfolio h3 {
     color: #F6F6F6;
     text-align: center; }
@@ -126,7 +124,7 @@ p, a {
     background-color: #F6F6F6; }
 
 #art {
-  background-color: #AD4744; }
+  background-color: #111; }
   #art h3 {
     color: #F6F6F6;
     text-align: center; }
@@ -148,7 +146,16 @@ p, a {
     .card-deck a:hover {
       text-decoration: underline; }
   .card-deck .card {
-    box-shadow: 5px 5px 10px -5px #111; }
+    border-radius: 0;
+    border: none; }
+    .card-deck .card img {
+      border-radius: 0; }
+    .card-deck .card .card-body {
+      background-color: #373737;
+      color: #F6F6F6;
+      font-weight: 100; }
+    .card-deck .card h4 {
+      color: #F6F6F6; }
 
 #contact {
   background-color: #F6F6F6; }

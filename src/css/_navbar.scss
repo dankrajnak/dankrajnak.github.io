@@ -1,6 +1,7 @@
 #mainNav {
     border: none;
     position: absolute;
+    background-color: $background-color;
     .navbar-brand {
         @include display-font();
         font-weight: 200;

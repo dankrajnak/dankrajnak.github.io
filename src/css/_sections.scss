@@ -6,8 +6,9 @@ section{
 //        animation-fill-mode: both;
 }
 
+
 #portfolio{
-    background-color: $primary-color;
+    background-color: $background-color;
     h3{
         color: $secondary-color;
         text-align: center;
@@ -18,7 +19,7 @@ section{
 }
 
 #art{
-    background-color: $red;
+    background-color: $background-color;
     h3{
         color: $secondary-color;
         text-align: center;
@@ -47,12 +48,24 @@ section{
         }
     }   
     .card{
-        box-shadow: 5px 5px 10px -5px $background-color;
+        img{
+            border-radius: 0;
+        }
+        //box-shadow: 0px 0px 4px 2px $primary-color;
+        border-radius: 0;
+        border: none;
 //        &:hover {
-//            box-shadow: 10px 10px 10px -5px $background-color;
 //            transform: translate(-5px, -5px);
 //
 //        }
+        .card-body{
+            background-color: lighten($background-color, 15%);
+            color: $secondary-color;
+            font-weight: 100;
+        }
+        h4 {
+            color: $secondary-color;
+        }
     }
 }
 

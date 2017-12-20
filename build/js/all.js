@@ -1,10 +1,176 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var PerspectiveSquare = function () {
+    function PerspectiveSquare(canvas, leftTopCorner, boxWidth) {
+        _classCallCheck(this, PerspectiveSquare);
+
+        this._canvas = canvas;
+        this._context = this._canvas.getContext('2d');
+        this._originalSquare = [leftTopCorner, [leftTopCorner[0] + boxWidth, leftTopCorner[1]], [leftTopCorner[0] + boxWidth, leftTopCorner[1] + boxWidth], [leftTopCorner[0], leftTopCorner[1] + boxWidth]];
+        this._squareCenter = [leftTopCorner[0] + boxWidth / 2, leftTopCorner[1] + boxWidth / 2];
+        //Deep copy
+        this._square = this._originalSquare.map(function (point) {
+            return point.slice();
+        });
+        this._boxWidth = boxWidth;
+        this._leftTopCorner = leftTopCorner;
+
+        //Public attributes
+        this.depth = 100; //Depth of perspective
+        this.lineColor = 'black';
+        this.background = 'white';
+        this.lineWeight = 3;
+        this.maxSquareDisplacement = 60; //Max front square moves away from the vanishPoint.
+    }
+
+    _createClass(PerspectiveSquare, [{
+        key: 'drawSquare',
+        value: function drawSquare(vanishPoint) {
+            var _this = this;
+
+            var canvasWidth = this._canvas.width;
+            var canvasHeight = this._canvas.height;
+            this._context.clearRect(0, 0, canvasWidth, canvasHeight, this.background);
+            this._context.fillStyle = this.background;
+            this._context.fillRect(0, 0, canvasWidth, canvasHeight);
+            this._context.lineWidth = this.lineWeight;
+            this._context.strokeStyle = this.lineColor;
+
+            //Move square
+            var displacementVector = [0, 0];
+            var squareDisplacement = Math.min(this._euclideanDistance(this._squareCenter, vanishPoint), this.maxSquareDisplacement);
+
+            displacementVector = this._distanceDownLine(this._squareCenter, vanishPoint, squareDisplacement);
+            displacementVector[0] -= this._squareCenter[0];
+            displacementVector[1] -= this._squareCenter[1];
+
+            for (var i = 0; i < 4; i++) {
+                this._square[i][0] = this._originalSquare[i][0] - displacementVector[0];
+                this._square[i][1] = this._originalSquare[i][1] - displacementVector[1];
+            }
+
+            /*---- Calculate second square -----*/
+            var secondSquare = [];
+            if (this._euclideanDistance(vanishPoint, this._square[0]) < this.depth) {
+                for (var _i = 0; _i < 4; _i++) {
+                    secondSquare.push(vanishPoint);
+                }
+            } else {
+                secondSquare.push(this._distanceDownLine(this._square[0], vanishPoint, this.depth));
+                secondSquare.push([this._calculateIntersection(this._square[1], vanishPoint, true, secondSquare[0][1]), secondSquare[0][1]]);
+                secondSquare.push([secondSquare[1][0], this._calculateIntersection(this._square[2], vanishPoint, false, secondSquare[1][0])]);
+                secondSquare.push([this._calculateIntersection(this._square[3], vanishPoint, true, secondSquare[2][1]), secondSquare[2][1]]);
+
+                //Draw second square
+                this._context.beginPath();
+                this._context.moveTo(secondSquare[secondSquare.length - 1][0], secondSquare[secondSquare.length - 1][1]);
+                secondSquare.forEach(function (point) {
+                    return _this._context.lineTo(point[0], point[1]);
+                });
+                this._context.stroke();
+                this._context.closePath();
+            }
+            this._square.forEach(function (point, index) {
+                //I'm not sure what this first part does.
+                _this._context.beginPath();
+                _this._context.moveTo(point[0], point[1]);
+                _this._context.lineTo(secondSquare[index][0], secondSquare[index][1]);
+                _this._context.stroke();
+                _this._context.closePath();
+
+                //Draw dash lines to second square
+                _this._context.beginPath();
+                _this._context.moveTo(secondSquare[index][0], secondSquare[index][1]);
+                _this._context.setLineDash([0, 4, _this.lineWeight, 4]);
+                _this._context.lineTo(vanishPoint[0], vanishPoint[1]);
+                _this._context.stroke();
+                _this._context.closePath();
+                _this._context.setLineDash([]);
+            });
+            //Draw first square
+            this._drawSquareOnContext();
+        }
+    }, {
+        key: 'resize',
+        value: function resize(leftTopCorner, boxWidth) {
+            this._originalSquare = [leftTopCorner, [leftTopCorner[0] + boxWidth, leftTopCorner[1]], [leftTopCorner[0] + boxWidth, leftTopCorner[1] + boxWidth], [leftTopCorner[0], leftTopCorner[1] + boxWidth]];
+            this._squareCenter = [leftTopCorner[0] + boxWidth / 2, leftTopCorner[1] + boxWidth / 2];
+            //Deep copy
+            this._square = this._originalSquare.map(function (point) {
+                return point.slice();
+            });
+            this._boxWidth = boxWidth;
+            this._leftTopCorner = leftTopCorner;
+        }
+    }, {
+        key: '_drawSquareOnContext',
+        value: function _drawSquareOnContext() {
+            var _this2 = this;
+
+            this._context.beginPath();
+            this._context.moveTo(this._square[this._square.length - 1][0], this._square[this._square.length - 1][1]);
+            this._square.forEach(function (point) {
+                return _this2._context.lineTo(point[0], point[1]);
+            });
+            this._context.stroke();
+            this._context.closePath;
+        }
+    }, {
+        key: '_calculateIntersection',
+        value: function _calculateIntersection(pointA, pointB, horizontal, intLine) {
+            /* Calculates the intersection between a given line and a horizontal or vertical line. */
+            if (horizontal) {
+                //Using two points form of the line
+                //x = (x2-x1)(y-y1)/(y2-y1)+x1
+                return (pointB[0] - pointA[0]) * (intLine - pointA[1]) / (pointB[1] - pointA[1]) + pointA[0];
+            } else {
+                //Using two points form of the line
+                //y = (y2 -y1)(x-x1)/(x2-x1)+y1
+                return (pointB[1] - pointA[1]) * (intLine - pointA[0]) / (pointB[0] - pointA[0]) + pointA[1];
+            }
+        }
+    }, {
+        key: '_distanceDownLine',
+        value: function _distanceDownLine(pointA, pointB, distance) {
+            /* Returns a point the given distance down the line specified */
+
+            //Similar triangles
+            var A = pointB[1] - pointA[1];
+            var B = pointB[0] - pointA[0];
+            var C = this._euclideanDistance(pointA, pointB);
+
+            var x = B - B * (C - distance) / C;
+            var y = A - A * (C - distance) / C;
+
+            return [pointA[0] + x, pointA[1] + y];
+        }
+    }, {
+        key: '_euclideanDistance',
+        value: function _euclideanDistance(pointA, pointB) {
+            //sqrt(a^2+b^2)
+            return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2));
+        }
+    }, {
+        key: 'boxWidth',
+        get: function get() {
+            return this._boxWidth;
+        }
+    }, {
+        key: 'leftTopCorner',
+        get: function get() {
+            return this._leftTopCorner;
+        }
+    }]);
+
+    return PerspectiveSquare;
+}();
 //Author: Daniel Krajnak
+
+
 var Typewriter = function () {
     /**
     Makes it look like the supplied texts are being typed into the element.
@@ -113,7 +279,7 @@ var Typewriter = function () {
     }
 
     _createClass(Typewriter, [{
-        key: "pause",
+        key: 'pause',
 
 
         //Public Methods:
@@ -125,7 +291,7 @@ var Typewriter = function () {
             return this;
         }
     }, {
-        key: "deleteAllCharacters",
+        key: 'deleteAllCharacters',
         value: function deleteAllCharacters() {
             var delayBase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._DEFAULT_DELETE_DELAY_BASE;
             var delayVariance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._DEFAULT_DELETE_DELAY_VARIANCE;
@@ -137,23 +303,23 @@ var Typewriter = function () {
             return this;
         }
     }, {
-        key: "deleteCharacter",
+        key: 'deleteCharacter',
         value: function deleteCharacter() {
-            var _this = this;
+            var _this3 = this;
 
             var delayBase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._DEFAULT_DELETE_DELAY_BASE;
             var delayVariance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._DEFAULT_DELETE_DELAY_VARIANCE;
 
             this._lengthAfterDelay = Math.max(this._lengthAfterDelay - 1, 0);
             this._delay(function () {
-                if (_this._currentText.length == 0) return false;
-                _this._currentText = _this._currentText.substr(0, _this._currentText.length - 1);
-                _this._displayCurrentText();
+                if (_this3._currentText.length == 0) return false;
+                _this3._currentText = _this3._currentText.substr(0, _this3._currentText.length - 1);
+                _this3._displayCurrentText();
             }, delayBase, delayVariance);
             return this;
         }
     }, {
-        key: "deleteCharacters",
+        key: 'deleteCharacters',
         value: function deleteCharacters(numCharacters) {
             var delayBase = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._DEFAULT_DELETE_DELAY_BASE;
             var delayVariance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this._DEFAULT_DELETE_DELAY_VARIANCE;
@@ -164,7 +330,7 @@ var Typewriter = function () {
             return this;
         }
     }, {
-        key: "play",
+        key: 'play',
         value: function play() {
             var pause = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._DEFAULT_PAUSE_AMOUNT;
             var pauseVariance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -188,7 +354,7 @@ var Typewriter = function () {
             return this;
         }
     }, {
-        key: "stop",
+        key: 'stop',
         value: function stop() {
             var immediately = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -200,11 +366,11 @@ var Typewriter = function () {
             return this;
         }
     }, {
-        key: "typeCharacter",
+        key: 'typeCharacter',
         value: function typeCharacter() {
             var character = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-            var _this2 = this;
+            var _this4 = this;
 
             var delayBase = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._DEFAULT_TYPE_DELAY_BASE;
             var delayVariance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this._DEFAULT_TYPE_DELAY_VARIANCE;
@@ -223,22 +389,22 @@ var Typewriter = function () {
                 var mistake = this._getMistakeCharacter(character);
                 this._lengthAfterDelay++;
                 this._delay(function () {
-                    _this2._currentText = _this2._currentText.concat(mistake);
-                    _this2._displayCurrentText();
+                    _this4._currentText = _this4._currentText.concat(mistake);
+                    _this4._displayCurrentText();
                 });
                 this.pause(200, 100);
                 this.deleteCharacters(1);
             }
             this._delay(function () {
-                _this2._currentText = _this2._currentText.concat(character);
-                _this2._displayCurrentText();
+                _this4._currentText = _this4._currentText.concat(character);
+                _this4._displayCurrentText();
             }, delayBase, delayVariance);
             return this;
         }
     }, {
-        key: "typeNextText",
+        key: 'typeNextText',
         value: function typeNextText() {
-            var _this3 = this;
+            var _this5 = this;
 
             var delayBase = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._DEFAULT_TYPE_DELAY_BASE;
             var delayVariance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._DEFAULT_TYPE_DELAY_VARIANCE;
@@ -246,7 +412,7 @@ var Typewriter = function () {
             this._textToType = this._texts[this._textIndex].split("");
             this._textIndex = (this._textIndex + 1) % this._texts.length;
             this._textToType.forEach(function (character) {
-                _this3.typeCharacter(character, delayBase, delayVariance);
+                _this5.typeCharacter(character, delayBase, delayVariance);
             });
             return this;
         }
@@ -254,7 +420,7 @@ var Typewriter = function () {
         /*      Private Members     */
 
     }, {
-        key: "_delay",
+        key: '_delay',
         value: function _delay(afterDelay, delayBase) {
             var delayVariance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
@@ -265,14 +431,14 @@ var Typewriter = function () {
             if (!this._delaySequenceRunning) this._executeNextDelay();
         }
     }, {
-        key: "_displayCurrentText",
+        key: '_displayCurrentText',
         value: function _displayCurrentText() {
             this._el.innerHTML = this._currentText;
         }
     }, {
-        key: "_executeNextDelay",
+        key: '_executeNextDelay',
         value: function _executeNextDelay() {
-            var _this4 = this;
+            var _this6 = this;
 
             if (this._stopImmediately) {
                 this._stopImmediately = false;
@@ -282,7 +448,7 @@ var Typewriter = function () {
                     var nextDelay = this._delaySequence.shift();
                     setTimeout(function () {
                         nextDelay.function();
-                        _this4._executeNextDelay();
+                        _this6._executeNextDelay();
                     }, nextDelay.delay);
                 } else {
                     if (this._play) {
@@ -298,7 +464,7 @@ var Typewriter = function () {
             }
         }
     }, {
-        key: "_getMistakeCharacter",
+        key: '_getMistakeCharacter',
         value: function _getMistakeCharacter(character) {
             var keyboard = ['qwertyuiop[', 'asdfghjkl;', 'zxcvbnm,'];
             var uppercase = character.toUpperCase() == character;
@@ -335,34 +501,14 @@ var Typewriter = function () {
             var specialCharacters = ['1234567890-=', 'p[]\\', 'l;\'', 'm,./'];
             var specialCharactersShift = ['!@#$%^&*()_+', 'P{}|', 'L:\"', 'M<>?'];
 
-            for (var _i = 0; _i < specialCharactersShift.length; _i++) {
-                var shiftedIndex = specialCharactersShift[_i].indexOf(character);
+            for (var _i2 = 0; _i2 < specialCharactersShift.length; _i2++) {
+                var shiftedIndex = specialCharactersShift[_i2].indexOf(character);
                 if (shiftedIndex -= -1) {
                     //It's shifted, so with a 90% chance, make a shift mistake.  Otherwise, big finger mistake.
                     if (Math.random() <= .9) {
-                        return specialCharacters[_i][shiftedIndex];
+                        return specialCharacters[_i2][shiftedIndex];
                     }
                     switch (shiftedIndex) {
-                        case 0:
-                            return specialCharactersShift[_i][1];
-
-                        case specialCharactersShift[_i].length - 1:
-                            return specialCharactersShift[_i][specialCharactersShift[_i].length - 2];
-
-                        default:
-                            return Math.random() <= .5 ? specialCharactersShift[_i][shiftedIndex - 1] : specialCharactersShift[_i][shiftedIndex + 1];
-                    }
-                }
-            }
-
-            for (var _i2 = 0; _i2 < specialCharacters.length; _i2++) {
-                var _index = specialCharactersShift[_i2].indexOf(character);
-                if (_index -= -1) {
-                    //It's not shifted, so with a 10% chance, make a shift mistake.  Otherwise, big finger mistake.
-                    if (Math.random() <= .1) {
-                        return specialCharactersShift[_i2][_index];
-                    }
-                    switch (_index) {
                         case 0:
                             return specialCharactersShift[_i2][1];
 
@@ -370,7 +516,27 @@ var Typewriter = function () {
                             return specialCharactersShift[_i2][specialCharactersShift[_i2].length - 2];
 
                         default:
-                            return Math.random() <= .5 ? specialCharactersShift[_i2][_index - 1] : specialCharactersShift[_i2][_index + 1];
+                            return Math.random() <= .5 ? specialCharactersShift[_i2][shiftedIndex - 1] : specialCharactersShift[_i2][shiftedIndex + 1];
+                    }
+                }
+            }
+
+            for (var _i3 = 0; _i3 < specialCharacters.length; _i3++) {
+                var _index = specialCharactersShift[_i3].indexOf(character);
+                if (_index -= -1) {
+                    //It's not shifted, so with a 10% chance, make a shift mistake.  Otherwise, big finger mistake.
+                    if (Math.random() <= .1) {
+                        return specialCharactersShift[_i3][_index];
+                    }
+                    switch (_index) {
+                        case 0:
+                            return specialCharactersShift[_i3][1];
+
+                        case specialCharactersShift[_i3].length - 1:
+                            return specialCharactersShift[_i3][specialCharactersShift[_i3].length - 2];
+
+                        default:
+                            return Math.random() <= .5 ? specialCharactersShift[_i3][_index - 1] : specialCharactersShift[_i3][_index + 1];
                     }
                 }
             }
@@ -378,12 +544,12 @@ var Typewriter = function () {
             return character;
         }
     }, {
-        key: "isTyping",
+        key: 'isTyping',
         get: function get() {
             return this._delaySequenceRunning;
         }
     }, {
-        key: "delaySequence",
+        key: 'delaySequence',
         get: function get() {
             /*Just a fun little note:
             No need for a lock here because, though Javascript is asynchronous, it's based on
@@ -400,159 +566,185 @@ var Typewriter = function () {
     return Typewriter;
 }();
 
-var typewriterText = ["Let's build something cool.", "Let's build something interesting.", "Let's build something sick."];
+var Wanderer = function () {
+    function Wanderer(width, height) {
+        var leftCorner = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [0, 0];
+
+        _classCallCheck(this, Wanderer);
+
+        this.width = width;
+        this.height = height;
+        this.leftCorner = leftCorner;
+        this._wanderToFromStart = null;
+        this._animationFrame;
+        this._wandering = false;
+        this._alpha = 3; //Parameter of easing function
+        this._distanceFromToToFrom; //Fun one to name
+        this._delay;
+    }
+
+    _createClass(Wanderer, [{
+        key: 'startWandering',
+        value: function startWandering(callBack, time) {
+            var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+            var from = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this._getNewPoint();
+
+            this._wandering = true;
+            this._delay = delay;
+            this.wanderToFrom(this._getNewPoint(), from, time, callBack);
+        }
+    }, {
+        key: 'stopWandering',
+        value: function stopWandering() {
+            var immediately = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            this._wandering = false;
+            if (immediately) {
+                window.cancelAnimationFrame(this._animationFrame);
+                this._wanderToFromStart = null;
+            }
+        }
+    }, {
+        key: 'wanderToFrom',
+        value: function wanderToFrom(to, from, time, callback) {
+            var _this7 = this;
+
+            this._alpha = Math.random() * 3 + 2 | 0; //Randomly pick new alpha for easing function
+            this._distanceFromToToFrom = this._euclideanDistance(to, from);
+            this._animationFrame = window.requestAnimationFrame(function (timeStep) {
+                return _this7._step(to, from, time, callback, timeStep);
+            });
+        }
+    }, {
+        key: '_step',
+        value: function _step(to, from, totalTime, callback, timeStep) {
+            var _this8 = this;
+
+            if (!this._wanderToFromStart) this._wanderToFromStart = timeStep;
+
+            var progress = timeStep - this._wanderToFromStart;
+            callback(this._interpolate(to, from, Math.min(1, progress / totalTime)));
+            if (progress < totalTime) this._animationFrame = window.requestAnimationFrame(function (newTimeStep) {
+                return _this8._step(to, from, totalTime, callback, newTimeStep);
+            });else {
+                this._wanderToFromStart = null;
+                //If wandering, wander from this point to a new one
+                if (this._wandering) {
+                    if (this._delay > 0) {
+                        setTimeout(function () {
+                            return _this8.wanderToFrom(_this8._getNewPoint(), to, totalTime, callback);
+                        }, this._delay);
+                    } else {
+                        this.wanderToFrom(this._getNewPoint(), to, totalTime, callback);
+                    }
+                }
+            }
+        }
+    }, {
+        key: '_interpolate',
+        value: function _interpolate(to, from, t) {
+            return this._distanceDownLine(from, to, this._distanceFromToToFrom * this._easeInOut(t));
+        }
+    }, {
+        key: '_easeInOut',
+        value: function _easeInOut(t) {
+            //easing function = t^a/(t^a+(1-t)^a).
+            return Math.pow(t, this._alpha) / (Math.pow(t, this._alpha) + Math.pow(1 - t, this._alpha));
+        }
+    }, {
+        key: '_distanceDownLine',
+        value: function _distanceDownLine(pointA, pointB, distance) {
+            /* Returns a point the given distance down the line specified */
+
+            //Similar triangles
+            var A = pointB[1] - pointA[1];
+            var B = pointB[0] - pointA[0];
+            if (A == 0 && B == 0) return pointA;
+            var C = this._euclideanDistance(pointA, pointB);
+
+            var x = B - B * (C - distance) / C;
+            var y = A - A * (C - distance) / C;
+
+            return [pointA[0] + x, pointA[1] + y];
+        }
+    }, {
+        key: '_getNewPoint',
+        value: function _getNewPoint() {
+            return [this.leftCorner[0] + Math.random() * this.width, this.leftCorner[1] + Math.random() * this.height];
+        }
+    }, {
+        key: '_euclideanDistance',
+        value: function _euclideanDistance(pointA, pointB) {
+            //sqrt(a^2+b^2)
+            return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2));
+        }
+    }]);
+
+    return Wanderer;
+}();
+
+var typewriterText = ["Can websites be a form of art?", "Let's build something cool.", "Scroll down to see more.", "Can websites be a form of art?", "Wait, you\'re still reading?", "Well, I\'m flattered.", "Thanks for riding it out to the end", "You should check out the song...", "\'Jungle\' by Tash Sultana", "Hopefully you like it!", "Hope you have a great day :)"];
+
 var typewriter = new Typewriter(typewriterText, document.getElementById('typewriter'));
 setTimeout(function () {
     return typewriter.play();
 }, 500);
 
-var canvas = d3.select('#perspective');
+var canvas = document.getElementById('perspective');
 
-var width = +canvas.style('width').slice(0, -2); //slice out 'px'
-var height = +canvas.style('height').slice(0, -2);
+var container = document.querySelector('.banner');
+container.setAttribute('style', 'height: ' + window.innerHeight + 'px');
 
-canvas.attr('width', width).attr('height', height);
+var width = canvas.clientWidth,
+    height = canvas.clientHeight;
+canvas.setAttribute('width', width);
+canvas.setAttribute('height', height);
 
-var container = d3.selectAll('.banner, #mainNav');
-var context = canvas.node().getContext('2d');
+var perspective = new PerspectiveSquare(canvas, [width * .4, height * .4], width * .2);
 
-var up = void 0,
-    bottom = void 0,
-    left = void 0,
-    right = void 0;
+//For smaller screens
+if (width < 430) perspective.depth = 40;
 
-if (width > height) {
-    up = height * 3 / 8;
-    bottom = height * 5 / 8;
-    left = (width - (bottom - up)) / 2;
-    right = left + (bottom - up);
-} else {
-    left = width * 3 / 8;
-    right = width * 5 / 8;
-    up = (height - (right - left)) / 2;
-    bottom = up + (right - left);
-}
+perspective.lineWeight = 2;
+perspective.background = '#111'; //dark grey
+perspective.lineColor = '#CCB255'; //gold
 
-var originalSquare = [[left, up], [right, up], [right, bottom], [left, bottom]];
-var square = [];
-//Deep copy
-originalSquare.forEach(function (point) {
-    square.push(point.slice());
+//Ok, this is a mess.  Need to add some functionality to wanderer to abstract away these calculations.
+var wanderLeftTopCorner = [Math.max(0, perspective.leftTopCorner[0] - perspective.boxWidth), Math.max(0, perspective.leftTopCorner[1] - perspective.boxWidth)];
+var wanderer = new Wanderer(Math.min(perspective.boxWidth * 3, width - wanderLeftTopCorner[0]), Math.min(perspective.boxWidth * 3, height - wanderLeftTopCorner[1]), wanderLeftTopCorner);
+
+//Magic numbers.  Sorry.  2000 = transition time, 500 = delay.
+wanderer.startWandering(function (pos) {
+    return perspective.drawSquare(pos);
+}, 2000, 500);
+
+container.addEventListener('mouseover', function (event) {
+    return wanderer.stopWandering(true);
+});
+container.addEventListener('mousemove', function (event) {
+    return perspective.drawSquare([event.pageX, event.pageY]);
+});
+container.addEventListener('mouseout', function (event) {
+    return wanderer.startWandering(function (pos) {
+        return perspective.drawSquare(pos);
+    }, 2000, 500, [event.pageX, event.pageY]);
 });
 
-var depth = 60;
-var maxSquareDisplacement = 60;
-var lineColor = '#CCB255';
-var background = '#111';
-var lineWidth = 3;
-context.strokeStyle = lineColor;
-context.lineWidth = lineWidth;
+window.addEventListener('resize', function () {
+    width = canvas.clientWidth, height = canvas.clientHeight;
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', height);
+    perspective.resize([width * .4, height * .4], width * .2);
+    if (width < 430) perspective.depth = 40;else {
+        perspective.depth = 100;
+    }
+    container.setAttribute('style', 'height: ' + window.innerHeight + 'px');
 
-render([right, bottom]);
-container.on('mousemove', function () {
-    var mouse = d3.mouse(this);
-    render(mouse);
+    wanderer.stopWandering(true);
+    var wanderer = new Wanderer(Math.min(perspective.boxWidth * 3, width - wanderLeftTopCorner[0]), Math.min(perspective.boxWidth * 3, height - wanderLeftTopCorner[1]), wanderLeftTopCorner);
+
+    //Magic numbers.  Sorry.  2000 = transition time, 500 = delay.
+    wanderer.startWandering(function (pos) {
+        return perspective.drawSquare(pos);
+    }, 2000, 500);
 });
-
-function render(mouse) {
-    context.clearRect(0, 0, width, height);
-    context.fillStyle = background;
-    context.fillRect(0, 0, width, height);
-
-    //Move square
-    var centerOfSquare = [(left + right) / 2, (up + bottom) / 2];
-    var displacementVector = [0, 0];
-    var squareDisplacement = maxSquareDisplacement;
-
-    if (euclideanDistance(centerOfSquare, mouse) < maxSquareDisplacement) {
-        squareDisplacement = euclideanDistance(centerOfSquare, mouse);
-    }
-    displacementVector = distanceDownLine(centerOfSquare, mouse, squareDisplacement);
-    displacementVector[0] -= centerOfSquare[0];
-    displacementVector[1] -= centerOfSquare[1];
-
-    for (var i = 0; i < 4; i++) {
-        square[i][0] = originalSquare[i][0] - displacementVector[0];
-        square[i][1] = originalSquare[i][1] - displacementVector[1];
-    }
-
-    /*---- Calculate second square -----*/
-    var secondSquare = [];
-    if (euclideanDistance(mouse, square[0]) < depth) {
-        for (var _i3 = 0; _i3 < 4; _i3++) {
-            secondSquare.push(mouse);
-        }
-    } else {
-        secondSquare.push(distanceDownLine(square[0], mouse, depth));
-        secondSquare.push([calculateIntersection(square[1], mouse, true, secondSquare[0][1]), secondSquare[0][1]]);
-        secondSquare.push([secondSquare[1][0], calculateIntersection(square[2], mouse, false, secondSquare[1][0])]);
-        secondSquare.push([calculateIntersection(square[3], mouse, true, secondSquare[2][1]), secondSquare[2][1]]);
-        //Draw second square
-        context.beginPath();
-        context.moveTo(secondSquare[secondSquare.length - 1][0], secondSquare[secondSquare.length - 1][1]);
-        secondSquare.forEach(function (point) {
-            return context.lineTo(point[0], point[1]);
-        });
-        context.stroke();
-        context.closePath;
-    }
-    square.forEach(function (point, index) {
-        context.beginPath();
-        context.moveTo(point[0], point[1]);
-        context.lineTo(secondSquare[index][0], secondSquare[index][1]);
-        context.stroke();
-        context.closePath();
-
-        context.beginPath();
-        context.moveTo(secondSquare[index][0], secondSquare[index][1]);
-        context.setLineDash([0, 4, lineWidth, 4]);
-        context.lineTo(mouse[0], mouse[1]);
-        context.stroke();
-        context.closePath();
-        context.setLineDash([]);
-    });
-    drawsquare();
-}
-
-function drawsquare() {
-    context.beginPath();
-    context.moveTo(square[square.length - 1][0], square[square.length - 1][1]);
-    square.forEach(function (point) {
-        return context.lineTo(point[0], point[1]);
-    });
-    context.stroke();
-    context.closePath;
-}
-
-function distanceDownLine(pointA, pointB, distance) {
-    /* Returns a point the given distance down the line specified */
-
-    //Similar triangles
-    var A = pointB[1] - pointA[1];
-    var B = pointB[0] - pointA[0];
-    var C = euclideanDistance(pointA, pointB);
-
-    var x = B - B * (C - distance) / C;
-    var y = A - A * (C - distance) / C;
-
-    return [pointA[0] + x, pointA[1] + y];
-}
-
-function calculateIntersection(pointA, pointB, horizontal, intLine) {
-    /* Calculates the intersection between a given line and a horizontal or vertical line. */
-
-    if (horizontal) {
-        //Using two points form of the line
-        //x = (x2-x1)(y-y1)/(y2-y1)+x1
-        return (pointB[0] - pointA[0]) * (intLine - pointA[1]) / (pointB[1] - pointA[1]) + pointA[0];
-    } else {
-        //Using two points form of the line
-        //y = (y2 -y1)(x-x1)/(x2-x1)+y1
-        return (pointB[1] - pointA[1]) * (intLine - pointA[0]) / (pointB[0] - pointA[0]) + pointA[1];
-    }
-}
-
-function euclideanDistance(pointA, pointB) {
-    //sqrt(a^2+b^2)
-    return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2));
-}

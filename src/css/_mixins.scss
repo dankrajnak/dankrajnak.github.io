@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Quicksand|Open-Sans');
+@import url('https://fonts.googleapis.com/css?family=Expletus+Sans|Open-Sans');
 
 @mixin display-font() {
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Helvetica Neue", cursive;
+    font-weight: 200;
 }
 
 @mixin sans-serif() {

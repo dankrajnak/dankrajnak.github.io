@@ -1,151 +1,63 @@
-let typewriterText = ["Let's build something cool.", "Let's build something interesting.", "Let's build something sick."]
+let typewriterText = ["Can websites be a form of art?", "Let's build something cool.", "Scroll down to see more.",
+                      "Can websites be a form of art?", "Wait, you\'re still reading?", "Well, I\'m flattered.", 
+                      "Thanks for riding it out to the end", "You should check out the song...",  "\'Jungle\' by Tash Sultana", 
+                      "Hopefully you like it!",  "Hope you have a great day :)"
+                     ]
+
 let typewriter = new Typewriter(typewriterText, document.getElementById('typewriter'));
 setTimeout(()=>typewriter.play(), 500);
 
+let canvas = document.getElementById('perspective');
 
-const canvas = d3.select('#perspective');
+let container = document.querySelector('.banner');
+container.setAttribute('style', `height: ${window.innerHeight}px`);
 
-let width = +canvas.style('width').slice(0, -2); //slice out 'px'
-let height = +canvas.style('height').slice(0, -2);
+let width = canvas.clientWidth, height = canvas.clientHeight;
+canvas.setAttribute('width', width);
+canvas.setAttribute('height', height);
 
-canvas.attr('width', width).attr('height', height);
+let perspective = new PerspectiveSquare(canvas, [width*.4, height*.4], width*.2);
 
-const container = d3.selectAll('.banner, #mainNav');
-const context = canvas.node().getContext('2d');
+//For smaller screens
+if(width<430) 
+    perspective.depth = 40;
 
-let up, bottom, left, right;
+perspective.lineWeight = 2;
+perspective.background = '#111'; //dark grey
+perspective.lineColor = '#CCB255'; //gold
 
-if (width > height) {
-    up = height * 3 / 8;
-    bottom = height * 5 / 8;
-    left = (width - (bottom - up)) / 2
-    right = left + (bottom - up);
-} else {
-    left = width * 3 / 8;
-    right = width * 5 / 8;
-    up = (height - (right - left)) / 2;
-    bottom = up + (right - left);
-}
+//Ok, this is a mess.  Need to add some functionality to wanderer to abstract away these calculations.
+let wanderLeftTopCorner = [Math.max(0, perspective.leftTopCorner[0]-perspective.boxWidth), Math.max(0, perspective.leftTopCorner[1] - perspective.boxWidth)];
+let wanderer = new Wanderer(Math.min(perspective.boxWidth*3, width-wanderLeftTopCorner[0]), 
+                            Math.min(perspective.boxWidth*3, height-wanderLeftTopCorner[1]),
+                            wanderLeftTopCorner);
 
-let originalSquare = [[left, up], [right, up], [right, bottom], [left, bottom]];
-let square = []
-//Deep copy
-originalSquare.forEach((point) => {
-    square.push(point.slice())
-})
+//Magic numbers.  Sorry.  2000 = transition time, 500 = delay.
+wanderer.startWandering((pos) => perspective.drawSquare(pos), 2000, 500);
 
-const depth = 60;
-const maxSquareDisplacement = 60;
-const lineColor = '#CCB255';
-const background = '#111';
-const lineWidth = 3
-context.strokeStyle = lineColor;
-context.lineWidth = lineWidth;
+container.addEventListener('mouseover', event=> wanderer.stopWandering(true));
+container.addEventListener('mousemove', event => perspective.drawSquare([event.pageX, event.pageY]));
+container.addEventListener('mouseout', event => wanderer.startWandering(pos=>perspective.drawSquare(pos), 2000, 500, [event.pageX, event.pageY]));
 
-render([right, bottom]);
-container.on('mousemove', function () {
-    let mouse = d3.mouse(this);
-    render(mouse);
+
+window.addEventListener('resize', ()=>{
+    width = canvas.clientWidth, height = canvas.clientHeight;
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', height);
+    perspective.resize([width*.4, height*.4], width*.2);
+    if(width<430) 
+        perspective.depth = 40;
+    else{
+        perspective.depth = 100;
+    }
+    container.setAttribute('style', `height: ${window.innerHeight}px`);
+    
+    wanderer.stopWandering(true);
+    let wanderer = new Wanderer(Math.min(perspective.boxWidth*3, width-wanderLeftTopCorner[0]), 
+                            Math.min(perspective.boxWidth*3, height-wanderLeftTopCorner[1]),
+                            wanderLeftTopCorner);
+
+    //Magic numbers.  Sorry.  2000 = transition time, 500 = delay.
+    wanderer.startWandering((pos) => perspective.drawSquare(pos), 2000, 500);
+    
 });
-
-function render(mouse){
-    context.clearRect(0, 0, width, height);
-    context.fillStyle = background
-    context.fillRect(0, 0, width, height);
-
-
-    //Move square
-    let centerOfSquare = [(left + right) / 2, (up + bottom) / 2];
-    let displacementVector = [0, 0];
-    let squareDisplacement = maxSquareDisplacement
-
-    if (euclideanDistance(centerOfSquare, mouse) < maxSquareDisplacement) {
-        squareDisplacement = euclideanDistance(centerOfSquare, mouse);
-    }
-    displacementVector = distanceDownLine(centerOfSquare, mouse, squareDisplacement)
-    displacementVector[0] -= centerOfSquare[0]
-    displacementVector[1] -= centerOfSquare[1]
-
-    for (let i = 0; i < 4; i++) {
-        square[i][0] = originalSquare[i][0] - displacementVector[0];
-        square[i][1] = originalSquare[i][1] - displacementVector[1];
-    }
-
-
-    /*---- Calculate second square -----*/
-    let secondSquare = [];
-    if (euclideanDistance(mouse, square[0]) < depth) {
-        for (let i = 0; i < 4; i++) {
-            secondSquare.push(mouse);
-        }
-    } else {
-        secondSquare.push(distanceDownLine(square[0], mouse, depth));
-        secondSquare.push([calculateIntersection(square[1], mouse, true, secondSquare[0][1]), secondSquare[0][1]]);
-        secondSquare.push([secondSquare[1][0], calculateIntersection(square[2], mouse, false, secondSquare[1][0])]);
-        secondSquare.push([calculateIntersection(square[3], mouse, true, secondSquare[2][1]), secondSquare[2][1]])
-        //Draw second square
-        context.beginPath();
-        context.moveTo(secondSquare[secondSquare.length - 1][0], secondSquare[secondSquare.length - 1][1])
-        secondSquare.forEach((point) => context.lineTo(point[0], point[1]));
-        context.stroke();
-        context.closePath;
-    }
-    square.forEach((point, index) => {
-        context.beginPath();
-        context.moveTo(point[0], point[1]);
-        context.lineTo(secondSquare[index][0], secondSquare[index][1]);
-        context.stroke();
-        context.closePath();
-
-        context.beginPath();
-        context.moveTo(secondSquare[index][0], secondSquare[index][1]);
-        context.setLineDash([0, 4, lineWidth, 4]);
-        context.lineTo(mouse[0], mouse[1]);
-        context.stroke();
-        context.closePath();
-        context.setLineDash([]);
-    })
-    drawsquare();
-}
-
-function drawsquare() {
-    context.beginPath();
-    context.moveTo(square[square.length - 1][0], square[square.length - 1][1])
-    square.forEach((point) => context.lineTo(point[0], point[1]));
-    context.stroke();
-    context.closePath;
-}
-
-function distanceDownLine(pointA, pointB, distance) {
-    /* Returns a point the given distance down the line specified */
-
-    //Similar triangles
-    const A = pointB[1] - pointA[1];
-    const B = pointB[0] - pointA[0];
-    const C = euclideanDistance(pointA, pointB);
-
-    const x = B - B * (C - distance) / C;
-    const y = A - A * (C - distance) / C;
-
-    return [pointA[0] + x, pointA[1] + y];
-}
-
-function calculateIntersection(pointA, pointB, horizontal, intLine) {
-    /* Calculates the intersection between a given line and a horizontal or vertical line. */
-
-    if (horizontal) {
-        //Using two points form of the line
-        //x = (x2-x1)(y-y1)/(y2-y1)+x1
-        return (pointB[0] - pointA[0]) * (intLine - pointA[1]) / (pointB[1] - pointA[1]) + pointA[0]
-
-    } else {
-        //Using two points form of the line
-        //y = (y2 -y1)(x-x1)/(x2-x1)+y1
-        return (pointB[1] - pointA[1]) * (intLine - pointA[0]) / (pointB[0] - pointA[0]) + pointA[1]
-    }
-}
-
-function euclideanDistance(pointA, pointB) {
-    //sqrt(a^2+b^2)
-    return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2));
-}
