@@ -38,7 +38,10 @@ let wanderer = new Wanderer(Math.min(perspective.boxWidth*3, width-wanderLeftTop
 wanderer.startWandering((pos) => perspective.drawSquare(pos), 2000, 500);
 
 container.addEventListener('mouseover', event=> wanderer.stopWandering(true));
-container.addEventListener('mousemove', event => perspective.drawSquare([event.pageX, event.pageY]));
+container.addEventListener('mousemove', event => { 
+    wanderer.stopWandering(true);
+    perspective.drawSquare([event.pageX, event.pageY]);
+});
 container.addEventListener('mouseout', event => wanderer.startWandering(pos=>perspective.drawSquare(pos), 2000, 500, [event.pageX, event.pageY]));
 
 

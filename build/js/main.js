@@ -41,7 +41,8 @@ container.addEventListener('mouseover', function (event) {
     return wanderer.stopWandering(true);
 });
 container.addEventListener('mousemove', function (event) {
-    return perspective.drawSquare([event.pageX, event.pageY]);
+    wanderer.stopWandering(true);
+    perspective.drawSquare([event.pageX, event.pageY]);
 });
 container.addEventListener('mouseout', function (event) {
     return wanderer.startWandering(function (pos) {
