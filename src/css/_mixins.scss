@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Expletus+Sans|Open-Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Source+Sans+Pro:200');
 
 @mixin display-font() {
-    font-family: "Helvetica Neue", cursive;
-    font-weight: 200;
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', cursive;
+    font-weight: 100;
 }
 
 @mixin sans-serif() {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', serif;
 }
 
 
@@ -16,17 +16,17 @@
     animation-name: $name;
 }
 
-@mixin animationDuration($duration){
+@mixin animationDuration($duration) {
     -webkit-animation-duration: $duration;
-  animation-duration: $duration;
+    animation-duration: $duration;
 }
 
-@mixin animationDelay($delay){
+@mixin animationDelay($delay) {
     -webkit-animation-delay: $delay;
     animation-delay: $delay;
 }
 
-@mixin animationTimingFunction($function){
+@mixin animationTimingFunction($function) {
     animation-timing-function: $function;
     -webkit-animation-timing-function: $function;
 }
