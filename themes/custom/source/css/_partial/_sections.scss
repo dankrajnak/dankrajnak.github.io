@@ -40,32 +40,30 @@ section{
 
 .card-deck{
     margin-top: 30px;
-    a{
-        color: $background-color;
-        text-decoration: none;
-        &:hover{
-            text-decoration: underline;
-        }
-    }   
+
     .card{
+        border-radius: 0;
+        border: none;
+
         img{
             border-radius: 0;
         }
-        //box-shadow: 0px 0px 4px 2px $primary-color;
-        border-radius: 0;
-        border: none;
-//        &:hover {
-//            transform: translate(-5px, -5px);
-//
-//        }
+        .card-title {
+            color: $secondary-color;
+        }
+        a{
+            color: $background-color;
+            text-decoration: none;
+            &:hover .card-title {
+                color: $background-color;
+            }
+        }
         .card-body{
             background-color: lighten($background-color, 15%);
             color: $secondary-color;
             font-weight: 100;
         }
-        h4 {
-            color: $secondary-color;
-        }
+
     }
 }
 
