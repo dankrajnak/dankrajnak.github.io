@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300|Source+Sans+Pro:200|Lora');
+
+@mixin display-font() {
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+    font-weight: 100;
+}
+
+@mixin sans-serif() {
+    font-family: 'Open Sans', serif;
+}
+
+@mixin serif() {
+    font-family: 'Lora', serif;
+}
+
+
+//Animation help.
+@mixin animationName($name) {
+    -webkit-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin animationDuration($duration) {
+    -webkit-animation-duration: $duration;
+    animation-duration: $duration;
+}
+
+@mixin animationDelay($delay) {
+    -webkit-animation-delay: $delay;
+    animation-delay: $delay;
+}
+
+@mixin animationTimingFunction($function) {
+    animation-timing-function: $function;
+    -webkit-animation-timing-function: $function;
+}

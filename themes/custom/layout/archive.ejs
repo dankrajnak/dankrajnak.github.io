@@ -1,0 +1,11 @@
+<%- partial('_partial/nav-spacer') %>
+<header class='archive-header'>
+    <h1 id ='typewriter'></h1>
+</header>
+
+<% page.posts.forEach(function(post, index){ %>
+  <%- partial('_partial/article-stub', {post: post, index: page.posts.length - index}) %>
+<% }) %>
+
+<%- js('js/classes/min/classes.min') %>
+<%- js('js/archive/main') %>

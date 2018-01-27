@@ -1,0 +1,132 @@
+article {
+    margin-bottom: 7%;
+
+    &.top-margin {
+        margin-top: 60px;
+    }
+
+    .back {
+        padding: 8px 0px;
+        a {
+            background-color: $primary-color;
+            padding: 10px 10px 10px 10px;
+            font-size: 1.5em;
+            // display: block;
+            border: none;
+            color: $background-color;
+            @include display-font();
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
+
+    .article-header {
+        background: lighten($background-color, 10);
+
+        .article-title {
+            color: $primary-color;
+            font-size: 4em;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-bottom: .1em;
+            border-bottom: $primary-color solid 1px;
+        }
+
+        .article-meta {
+            margin-bottom: 6px;
+            .article-date {
+                text-decoration: none;
+                font-size: 1.5em;
+
+                time {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    .article-body {
+        padding-top: 30px;
+        background: $white;
+    }
+
+    .article-inner {
+        margin-bottom: 30px;
+        // border-bottom: solid $primary-color 1px;
+    }
+
+    .article-footer{
+        margin-top: 30px;
+        height: 20px;
+        background: lighten($background-color, 10);
+        color: $primary-color;
+    }
+}
+/*Article coloring able to be applied outisde of an article */
+.article-text {
+    color: $background-color;
+    blockquote{
+        p {
+            @include serif();
+        }
+        position: relative;
+        margin: 10px 0px;
+        padding: 10px 30px;
+        background: darken($white, 10);
+        font-style: italic;
+        &:before{
+            content: open-quote;
+            @include serif();
+            position: absolute;
+            padding: none;
+            top: 0px;
+            left: 5px;
+            font-size: 2em;
+        }
+        &:after{
+            content: close-quote;
+            @include serif();
+            position: absolute;
+            padding: none;
+            bottom: 0px;
+            right: 10px;
+            font-size: 2em;
+        }
+
+    }
+
+    /*Code*/
+    figure.highlight{
+        td.code{
+            padding-left: 15px;
+        }
+        .gutter{
+            display: none;
+            background-color: darken($white, 10);
+        }
+        .string{
+            color: $string;
+        }
+
+        .keyword{
+            color: $function;
+        }
+        .title{
+            color: $title;
+        }
+        .params{
+            color: $params;
+        }
+    }
+
+    /*Links*/
+    a {
+        color: lighten($background-color, 10);
+        font-weight: bold;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<article class="<%= topMargin? 'top-margin' : ''%>">
+    <div class="container back">
+        <div class="row">
+            <div class = "col">
+                <a href="\blog" id="back">&lt; Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container article-header">
+        <div class="row">
+            <div class="col-1">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-10">
+                <div class="article-header">
+                    <h1 class="article-title"> <%= post.title %> </h1>
+                    <div class="article-meta">
+                        <%- partial('post/date', {dateClass: 'article-date'}) %>
+                        <%- partial('post/category') %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container article-body">
+        <div class="row">
+            <div class="col-1">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-10">
+                <div class="article-inner article-text">
+                    <%- post.content %>
+                </div>
+            </div>
+        </div>
+        <div class="row article-footer">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</article>

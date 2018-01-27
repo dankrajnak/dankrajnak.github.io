@@ -1,0 +1,21 @@
+<div class = "stub">
+    <div class="container">
+        <a href = "<%- url_for(post.path)%>"><span class="link-cover"></span></a>
+        <div class="row">
+            <div class="col-lg-1 col-md-2 col-sm-4 number">
+                <h1><%= index+'.' %></h1>
+            </div>
+            <div class="col">
+                <div class="stub-header">
+                    <h1 class="stub-title"> <%= post.title%> </h1>
+                    <div class="stub-meta">
+                        <%- partial('post/date', {dateClass: 'stub-date'}) %>
+                    </div>
+                </div>
+                <div class="stub-description">
+                    <p><%- post.description %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
