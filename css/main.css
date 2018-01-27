@@ -1,0 +1,349 @@
+/* Code syntax highlighting */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300|Source+Sans+Pro:200|Lora");
+@keyframes fadeIn80 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9); }
+  100% {
+    opacity: .8;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes fadeIn100 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes moveUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate(0, 5%) scale(0.95);
+    -moz-transform: translate(0, 5%) scale(0.95);
+    -ms-transform: translate(0, 5%) scale(0.95);
+    transform: translate(0, 5%) scale(0.95); }
+  100% {
+    opacity: 1; } }
+
+html,
+body {
+  margin: 0; }
+
+body {
+  background-color: #111; }
+
+section {
+  padding-top: 60px;
+  padding-bottom: 60px; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+  font-weight: 100;
+  font-weight: 500; }
+
+p, a {
+  font-family: 'Open Sans', serif; }
+
+#mainNav {
+  border: none;
+  background-color: rgba(17, 17, 17, 0.95); }
+  #mainNav .navbar-brand {
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+    font-weight: 100;
+    font-weight: 200;
+    color: #CCB255; }
+  #mainNav .nav-item a {
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+    font-weight: 100;
+    color: #F6F6F6;
+    font-weight: 100; }
+  #mainNav button i {
+    color: #F6F6F6; }
+
+#navbar-spacer {
+  height: 56px; }
+
+.banner {
+  display: flex;
+  justify-content: center; }
+  .banner h1 {
+    padding-bottom: 5%;
+    align-self: flex-end;
+    text-align: center;
+    color: #F5F5F5;
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+    font-weight: 100; }
+    .banner h1:after {
+      content: "|";
+      font-weight: 400;
+      animation: blink 500ms ease-in-out infinite alternate; }
+  .banner canvas {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+header {
+  height: 800px; }
+
+#portfolio {
+  background-color: #111; }
+  #portfolio h3 {
+    color: #F6F6F6;
+    text-align: center; }
+  #portfolio .card {
+    background-color: #F6F6F6; }
+
+#art {
+  background-color: #111; }
+  #art h3 {
+    color: #F6F6F6;
+    text-align: center; }
+  #art .card {
+    background-color: #F6F6F6; }
+
+#about {
+  background-color: #111;
+  color: #F6F6F6; }
+  #about h3 {
+    text-align: center;
+    margin-bottom: 30px; }
+
+.card-deck {
+  margin-top: 30px; }
+  .card-deck .card {
+    border-radius: 0;
+    border: none; }
+    .card-deck .card img {
+      border-radius: 0; }
+    .card-deck .card .card-title {
+      color: #F6F6F6; }
+    .card-deck .card a {
+      color: #111;
+      text-decoration: none; }
+      .card-deck .card a:hover .card-title {
+        color: #111; }
+    .card-deck .card .card-body {
+      background-color: #373737;
+      color: #F6F6F6;
+      font-weight: 100; }
+
+#contact {
+  background-color: #F6F6F6; }
+  #contact h3 {
+    text-align: center; }
+  #contact .form-control:active, #contact .form-control:focus {
+    border-color: #CCB255; }
+  #contact .btn-primary {
+    background-color: #CCB255;
+    border-color: #CCB255; }
+
+footer {
+  background-color: #111;
+  color: #F6F6F6;
+  padding: 10px;
+  text-align: right;
+  font-size: .8em; }
+
+.archive-header {
+  display: flex;
+  background: #CCB255;
+  height: 400px; }
+  .archive-header h1 {
+    align-self: center;
+    margin: auto;
+    font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+    font-weight: 100;
+    text-align: center;
+    color: #111;
+    padding-right: none; }
+    .archive-header h1:after {
+      content: "|";
+      font-weight: 400;
+      animation: blink 500ms ease-in-out infinite alternate; }
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes blink {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+article {
+  margin-bottom: 7%; }
+  article.top-margin {
+    margin-top: 60px; }
+  article .back {
+    padding: 8px 0px; }
+    article .back a {
+      background-color: #CCB255;
+      padding: 10px 10px 10px 10px;
+      font-size: 1.5em;
+      border: none;
+      color: #111;
+      font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+      font-weight: 100; }
+      article .back a:hover {
+        text-decoration: none; }
+  article .article-header {
+    background: #2b2b2b; }
+    article .article-header .article-title {
+      color: #CCB255;
+      font-size: 4em;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      padding-bottom: .1em;
+      border-bottom: #CCB255 solid 1px; }
+    article .article-header .article-meta {
+      margin-bottom: 6px; }
+      article .article-header .article-meta .article-date {
+        text-decoration: none;
+        font-size: 1.5em; }
+        article .article-header .article-meta .article-date time {
+          color: white; }
+  article .article-body {
+    padding-top: 30px;
+    background: white; }
+  article .article-inner {
+    margin-bottom: 30px; }
+  article .article-footer {
+    margin-top: 30px;
+    height: 20px;
+    background: #2b2b2b;
+    color: #CCB255; }
+
+/*Article coloring able to be applied outisde of an article */
+.article-text {
+  color: #111;
+  /*Code*/
+  /*Links*/ }
+  .article-text blockquote {
+    position: relative;
+    margin: 10px 0px;
+    padding: 10px 30px;
+    background: #e6e6e6;
+    font-style: italic; }
+    .article-text blockquote p {
+      font-family: 'Lora', serif; }
+    .article-text blockquote:before {
+      content: open-quote;
+      font-family: 'Lora', serif;
+      position: absolute;
+      padding: none;
+      top: 0px;
+      left: 5px;
+      font-size: 2em; }
+    .article-text blockquote:after {
+      content: close-quote;
+      font-family: 'Lora', serif;
+      position: absolute;
+      padding: none;
+      bottom: 0px;
+      right: 10px;
+      font-size: 2em; }
+  .article-text figure.highlight td.code {
+    padding-left: 15px; }
+  .article-text figure.highlight .gutter {
+    display: none;
+    background-color: #e6e6e6; }
+  .article-text figure.highlight .string {
+    color: #6BAD56; }
+  .article-text figure.highlight .keyword {
+    color: #CCB255; }
+  .article-text figure.highlight .title {
+    color: #AD4744; }
+  .article-text figure.highlight .params {
+    color: #537DAC; }
+  .article-text a {
+    color: #2b2b2b;
+    font-weight: bold; }
+    .article-text a:hover {
+      color: #CCB255; }
+
+.stub {
+  margin-top: 20px; }
+  .stub .link-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    text-decoration: none;
+    /* No underlines on the link */
+    z-index: 10;
+    /* Places the link above everything else in the div */
+    background-color: #FFF;
+    /* Fix to make div clickable in IE */
+    opacity: 0;
+    /* Fix to make div clickable in IE */
+    filter: alpha(opacity=1);
+    /* Fix to make div clickable in IE */ }
+  .stub .container {
+    position: relative;
+    background-color: #444444; }
+    .stub .container .number {
+      display: flex;
+      background-color: #CCB255; }
+      .stub .container .number h1 {
+        font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+        font-weight: 100;
+        font-size: 4em;
+        color: #111;
+        align-self: center;
+        margin: auto; }
+    .stub .container .stub-title {
+      color: #CCB255; }
+    .stub .container .stub-meta .stub-date {
+      background: #f7f7f7;
+      padding: 2px 5px;
+      text-decoration: none; }
+      .stub .container .stub-meta .stub-date time {
+        color: #111; }
+    .stub .container .stub-description {
+      margin-top: 5px;
+      color: white; }
