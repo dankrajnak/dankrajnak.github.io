@@ -1,3 +1,4 @@
+/* Code syntax highlighting */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300|Source+Sans+Pro:200|Lora");
 @keyframes fadeIn80 {
   0% {
@@ -143,22 +144,22 @@ header {
 
 .card-deck {
   margin-top: 30px; }
-  .card-deck a {
-    color: #111;
-    text-decoration: none; }
-    .card-deck a:hover {
-      text-decoration: underline; }
   .card-deck .card {
     border-radius: 0;
     border: none; }
     .card-deck .card img {
       border-radius: 0; }
+    .card-deck .card .card-title {
+      color: #F6F6F6; }
+    .card-deck .card a {
+      color: #111;
+      text-decoration: none; }
+      .card-deck .card a:hover .card-title {
+        color: #111; }
     .card-deck .card .card-body {
       background-color: #373737;
       color: #F6F6F6;
       font-weight: 100; }
-    .card-deck .card h4 {
-      color: #F6F6F6; }
 
 #contact {
   background-color: #F6F6F6; }
@@ -216,6 +217,18 @@ article {
   margin-bottom: 7%; }
   article.top-margin {
     margin-top: 60px; }
+  article .back {
+    padding: 8px 0px; }
+    article .back a {
+      background-color: #CCB255;
+      padding: 10px 10px 10px 10px;
+      font-size: 1.5em;
+      border: none;
+      color: #111;
+      font-family: 'Source Sans Pro', 'Hevetica Nueue', 'Open Sans', serif;
+      font-weight: 100; }
+      article .back a:hover {
+        text-decoration: none; }
   article .article-header {
     background: #2b2b2b; }
     article .article-header .article-title {
@@ -246,10 +259,11 @@ article {
 /*Article coloring able to be applied outisde of an article */
 .article-text {
   color: #111;
+  /*Code*/
   /*Links*/ }
   .article-text blockquote {
     position: relative;
-    margin: 10px;
+    margin: 10px 0px;
     padding: 10px 30px;
     background: #e6e6e6;
     font-style: italic; }
@@ -271,6 +285,19 @@ article {
       bottom: 0px;
       right: 10px;
       font-size: 2em; }
+  .article-text figure.highlight td.code {
+    padding-left: 15px; }
+  .article-text figure.highlight .gutter {
+    display: none;
+    background-color: #e6e6e6; }
+  .article-text figure.highlight .string {
+    color: #6BAD56; }
+  .article-text figure.highlight .keyword {
+    color: #CCB255; }
+  .article-text figure.highlight .title {
+    color: #AD4744; }
+  .article-text figure.highlight .params {
+    color: #537DAC; }
   .article-text a {
     color: #2b2b2b;
     font-weight: bold; }
