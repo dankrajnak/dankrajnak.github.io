@@ -6,16 +6,18 @@ article {
     }
 
     .back {
-        padding: 8px 0px;
+        padding: 8px 0;
+
         a {
             background-color: $primary-color;
-            padding: 10px 10px 10px 10px;
+            padding: 10px;
             font-size: 1.5em;
             // display: block;
             border: none;
             color: $background-color;
             @include display-font();
-            &:hover{
+
+            &:hover {
                 text-decoration: none;
             }
         }
@@ -29,12 +31,13 @@ article {
             font-size: 4em;
             margin-top: 50px;
             margin-bottom: 20px;
-            padding-bottom: .1em;
+            padding-bottom: 0.1em;
             border-bottom: $primary-color solid 1px;
         }
 
         .article-meta {
             margin-bottom: 6px;
+
             .article-date {
                 text-decoration: none;
                 font-size: 1.5em;
@@ -47,7 +50,7 @@ article {
     }
 
     .article-body {
-        padding-top: 30px;
+        padding-top: 70px;
         background: $white;
     }
 
@@ -56,7 +59,7 @@ article {
         // border-bottom: solid $primary-color 1px;
     }
 
-    .article-footer{
+    .article-footer {
         margin-top: 30px;
         height: 20px;
         background: lighten($background-color, 10);
@@ -64,62 +67,92 @@ article {
     }
 }
 /*Article coloring able to be applied outisde of an article */
+$font-size: 1.2em;
+
 .article-text {
     color: $background-color;
-    blockquote{
+
+    h1{
+        padding-bottom: 5px;
+        margin-top: $font-size;
+        margin-bottom: calc(#{$font-size} *.5);
+    }
+
+    p{
+        font-size: $font-size;
+        line-height: calc(#{$font-size} * 1.5);
+        margin-bottom: calc(#{$font-size});
+    }
+
+    blockquote {
         p {
             @include serif();
         }
         position: relative;
-        margin: 10px 0px;
+        margin: 10px 0;
         padding: 10px 30px;
         background: darken($white, 10);
         font-style: italic;
-        &:before{
+
+        &:before {
             content: open-quote;
             @include serif();
             position: absolute;
             padding: none;
-            top: 0px;
+            top: 0;
             left: 5px;
             font-size: 2em;
         }
-        &:after{
+
+        &:after {
             content: close-quote;
             @include serif();
             position: absolute;
             padding: none;
-            bottom: 0px;
+            bottom: 0;
             right: 10px;
             font-size: 2em;
         }
-
     }
 
+    img {
+        max-width: 100%;
+        max-height: 750px;
+        margin: 30px auto 60px auto;
+        display: block;
+        /*Box shadow taken from Samuel Thorton's codepen of Material Design
+        box shadows.
+        https://codepen.io/sdthornton/pen/wBZdXq
+        */
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
     /*Code*/
-    figure.highlight{
-        td.code{
+    figure.highlight {
+        td.code {
             padding-left: 15px;
         }
-        .gutter{
+
+        .gutter {
             display: none;
             background-color: darken($white, 10);
         }
-        .string{
+
+        .string {
             color: $string;
         }
 
-        .keyword{
+        .keyword {
             color: $function;
         }
-        .title{
+
+        .title {
             color: $title;
         }
-        .params{
+
+        .params {
             color: $params;
         }
     }
-
     /*Links*/
     a {
         color: lighten($background-color, 10);
