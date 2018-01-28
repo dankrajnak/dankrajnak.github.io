@@ -85,14 +85,14 @@ var PerspectiveSquare = (function () {
                     this._context.closePath();
                 }
                 this._square.forEach(function (point, index) {
-                    //I'm not sure what this first part does.
+                    //Draw lines from first square to second square
                     _this._context.beginPath();
                     _this._context.moveTo(point[0], point[1]);
                     _this._context.lineTo(secondSquare[index][0], secondSquare[index][1]);
                     _this._context.stroke();
                     _this._context.closePath();
 
-                    //Draw dash lines to second square
+                    //Draw dash lines from second square to vanishing point.
                     _this._context.beginPath();
                     _this._context.moveTo(secondSquare[index][0], secondSquare[index][1]);
                     _this._context.setLineDash([0, 4, _this.lineWeight, 4]);
