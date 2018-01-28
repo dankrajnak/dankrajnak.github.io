@@ -1,10 +1,10 @@
 class PerspectiveSquare {
-    
+
     constructor(canvas, leftTopCorner, boxWidth){
         this._canvas = canvas;
         this._context = this._canvas.getContext('2d');
-        this._originalSquare = [leftTopCorner, 
-                            [leftTopCorner[0]+boxWidth, leftTopCorner[1]], 
+        this._originalSquare = [leftTopCorner,
+                            [leftTopCorner[0]+boxWidth, leftTopCorner[1]],
                             [leftTopCorner[0]+boxWidth, leftTopCorner[1]+boxWidth],
                             [leftTopCorner[0], leftTopCorner[1]+boxWidth]
                            ];
@@ -13,7 +13,7 @@ class PerspectiveSquare {
         this._square = this._originalSquare.map(point => point.slice());
         this._boxWidth = boxWidth;
         this._leftTopCorner = leftTopCorner;
-        
+
         //Public attributes
         this.depth = 100; //Depth of perspective
         this.lineColor = 'black';
@@ -21,7 +21,7 @@ class PerspectiveSquare {
         this.lineWeight = 3;
         this.maxSquareDisplacement = 60; //Max front square moves away from the vanishPoint.
     }
-    
+
     get boxWidth(){
         return this._boxWidth;
     }
@@ -29,7 +29,7 @@ class PerspectiveSquare {
     get leftTopCorner(){
         return this._leftTopCorner;
     }
-    
+
     drawSquare(vanishPoint){
         const canvasWidth = this._canvas.width;
         const canvasHeight = this._canvas.height;
@@ -42,7 +42,7 @@ class PerspectiveSquare {
         //Move square
         let displacementVector = [0, 0];
         let squareDisplacement = Math.min(this._euclideanDistance(this._squareCenter, vanishPoint), this.maxSquareDisplacement);
-        
+
         displacementVector = this._distanceDownLine(this._squareCenter, vanishPoint, squareDisplacement)
         displacementVector[0] -= this._squareCenter[0];
         displacementVector[1] -= this._squareCenter[1];
@@ -64,7 +64,7 @@ class PerspectiveSquare {
             secondSquare.push([this._calculateIntersection(this._square[1], vanishPoint, true, secondSquare[0][1]), secondSquare[0][1]]);
             secondSquare.push([secondSquare[1][0], this._calculateIntersection(this._square[2], vanishPoint, false, secondSquare[1][0])]);
             secondSquare.push([this._calculateIntersection(this._square[3], vanishPoint, true, secondSquare[2][1]), secondSquare[2][1]])
-            
+
             //Draw second square
             this._context.beginPath();
             this._context.moveTo(secondSquare[secondSquare.length - 1][0], secondSquare[secondSquare.length - 1][1])
@@ -73,14 +73,14 @@ class PerspectiveSquare {
             this._context.closePath();
         }
         this._square.forEach((point, index) => {
-            //I'm not sure what this first part does.
+            //Draw lines from first square to second square
             this._context.beginPath();
             this._context.moveTo(point[0], point[1]);
             this._context.lineTo(secondSquare[index][0], secondSquare[index][1]);
             this._context.stroke();
             this._context.closePath();
-            
-            //Draw dash lines to second square
+
+            //Draw dash lines from second square to vanishing point.
             this._context.beginPath();
             this._context.moveTo(secondSquare[index][0], secondSquare[index][1]);
             this._context.setLineDash([0, 4, this.lineWeight, 4]);
@@ -92,10 +92,10 @@ class PerspectiveSquare {
         //Draw first square
         this._drawSquareOnContext();
     }
-    
+
     resize(leftTopCorner, boxWidth){
-        this._originalSquare = [leftTopCorner, 
-                            [leftTopCorner[0]+boxWidth, leftTopCorner[1]], 
+        this._originalSquare = [leftTopCorner,
+                            [leftTopCorner[0]+boxWidth, leftTopCorner[1]],
                             [leftTopCorner[0]+boxWidth, leftTopCorner[1]+boxWidth],
                             [leftTopCorner[0], leftTopCorner[1]+boxWidth]
                            ];
@@ -105,7 +105,7 @@ class PerspectiveSquare {
         this._boxWidth = boxWidth;
         this._leftTopCorner = leftTopCorner;
     }
-    
+
     _drawSquareOnContext() {
         this._context.beginPath();
         this._context.moveTo(this._square[this._square.length - 1][0], this._square[this._square.length - 1][1])
@@ -113,7 +113,7 @@ class PerspectiveSquare {
         this._context.stroke();
         this._context.closePath;
     }
-    
+
     _calculateIntersection(pointA, pointB, horizontal, intLine) {
         /* Calculates the intersection between a given line and a horizontal or vertical line. */
         if (horizontal) {
@@ -127,8 +127,8 @@ class PerspectiveSquare {
             return (pointB[1] - pointA[1]) * (intLine - pointA[0]) / (pointB[0] - pointA[0]) + pointA[1]
         }
     }
-    
-    
+
+
     _distanceDownLine(pointA, pointB, distance) {
         /* Returns a point the given distance down the line specified */
 
@@ -142,7 +142,7 @@ class PerspectiveSquare {
 
         return [pointA[0] + x, pointA[1] + y];
     }
-    
+
     _euclideanDistance(pointA, pointB) {
         //sqrt(a^2+b^2)
         return Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2));
