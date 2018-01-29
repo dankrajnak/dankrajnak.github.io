@@ -272,11 +272,14 @@ article {
   .article-text blockquote {
     position: relative;
     margin: 30px 0;
-    padding: 20px 80px;
+    padding: 10px 20px;
     background: #f7f7f7;
     font-style: italic; }
     .article-text blockquote p {
       font-family: 'Lora', serif; }
+    @media screen and (min-width: 480px) {
+      .article-text blockquote {
+        padding: 20px 80px; } }
     .article-text blockquote:before {
       content: open-quote;
       font-family: 'Lora', serif;
