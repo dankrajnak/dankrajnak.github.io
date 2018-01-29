@@ -172,9 +172,6 @@ header {
     border-color: #CCB255; }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   background-color: #111;
   color: #F6F6F6;
   padding: 10px;
@@ -221,10 +218,10 @@ article {
   article.top-margin {
     margin-top: 60px; }
   article .back {
-    padding: 8px 0px; }
+    padding: 8px 0; }
     article .back a {
       background-color: #CCB255;
-      padding: 10px 10px 10px 10px;
+      padding: 10px;
       font-size: 1.5em;
       border: none;
       color: #111;
@@ -239,7 +236,7 @@ article {
       font-size: 4em;
       margin-top: 50px;
       margin-bottom: 20px;
-      padding-bottom: .1em;
+      padding-bottom: 0.1em;
       border-bottom: #CCB255 solid 1px; }
     article .article-header .article-meta {
       margin-bottom: 6px; }
@@ -249,7 +246,7 @@ article {
         article .article-header .article-meta .article-date time {
           color: white; }
   article .article-body {
-    padding-top: 30px;
+    padding-top: 70px;
     background: white; }
   article .article-inner {
     margin-bottom: 30px; }
@@ -264,20 +261,31 @@ article {
   color: #111;
   /*Code*/
   /*Links*/ }
+  .article-text h1, .article-text h2, .article-text h3, .article-text h4 {
+    color: #CCB255;
+    margin-top: 1.2em;
+    margin-bottom: calc(1.2em *.3); }
+  .article-text p {
+    font-size: 1.2em;
+    line-height: calc(1.2em * 1.5);
+    margin-bottom: calc(1.2em); }
   .article-text blockquote {
     position: relative;
-    margin: 10px 0px;
-    padding: 10px 30px;
-    background: #e6e6e6;
+    margin: 30px 0;
+    padding: 10px 20px;
+    background: #f7f7f7;
     font-style: italic; }
     .article-text blockquote p {
       font-family: 'Lora', serif; }
+    @media screen and (min-width: 480px) {
+      .article-text blockquote {
+        padding: 20px 80px; } }
     .article-text blockquote:before {
       content: open-quote;
       font-family: 'Lora', serif;
       position: absolute;
       padding: none;
-      top: 0px;
+      top: 0;
       left: 5px;
       font-size: 2em; }
     .article-text blockquote:after {
@@ -285,9 +293,19 @@ article {
       font-family: 'Lora', serif;
       position: absolute;
       padding: none;
-      bottom: 0px;
-      right: 10px;
+      bottom: 0;
+      right: 15px;
       font-size: 2em; }
+  .article-text img {
+    max-width: 100%;
+    max-height: 750px;
+    margin: 30px auto 60px auto;
+    display: block;
+    /*Box shadow taken from Samuel Thorton's codepen of Material Design
+        box shadows.
+        https://codepen.io/sdthornton/pen/wBZdXq
+        */
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
   .article-text figure.highlight td.code {
     padding-left: 15px; }
   .article-text figure.highlight .gutter {
