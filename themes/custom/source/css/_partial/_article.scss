@@ -91,7 +91,7 @@ $font-size: 1.2em;
         position: relative;
         margin: 30px 0;
         padding: 10px 20px;
-        @media screen and (min-width: 480px){
+        @media screen and (min-width: 767px){ /*Bootstrap defined xs as 767 pixels */
             padding: 20px 80px;
         }
         background: lighten($background-color, 90);
