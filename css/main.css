@@ -277,8 +277,9 @@ article {
     font-style: italic; }
     .article-text blockquote p {
       font-family: 'Lora', serif; }
-    @media screen and (min-width: 480px) {
+    @media screen and (min-width: 767px) {
       .article-text blockquote {
+        /*Bootstrap defined xs as 767 pixels */
         padding: 20px 80px; } }
     .article-text blockquote:before {
       content: open-quote;
