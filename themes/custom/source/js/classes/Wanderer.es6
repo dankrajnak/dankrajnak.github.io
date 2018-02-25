@@ -10,7 +10,6 @@ class Wanderer{
         this._alpha = 3; //Parameter of easing function
         this._distanceFromToToFrom; //Fun one to name
         this._delay;
-        console.log("WANDER");
     }
 
     startWandering(callBack, time, delay = 0, from=this._getNewPoint()){
