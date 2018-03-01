@@ -34,16 +34,13 @@ let wanderer = new Wanderer(Math.min(perspective.boxWidth*3, width-wanderLeftTop
 
 //Magic numbers.  Sorry.  2000 = transition time, 500 = delay.
 wanderer.startWandering((pos) => perspective.drawSquare(pos), 2000, 500);
-console.log("AAAAAAAA")
 
 container.addEventListener('mouseover', event=> wanderer.stopWandering(true));
 container.addEventListener('mousemove', event => {
-    console.log("Stop")
     wanderer.stopWandering(true);
     perspective.drawSquare([event.pageX, event.pageY]);
 });
 container.addEventListener('mouseout', event => {
-    console.log("start");
     wanderer.startWandering(pos=>perspective.drawSquare(pos), 2000, 500, [event.pageX, event.pageY])
 });
 

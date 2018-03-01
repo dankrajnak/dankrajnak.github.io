@@ -34,18 +34,15 @@ var wanderer = new Wanderer(Math.min(perspective.boxWidth * 3, width - wanderLef
 wanderer.startWandering(function (pos) {
     return perspective.drawSquare(pos);
 }, 2000, 500);
-console.log("AAAAAAAA");
 
 container.addEventListener("mouseover", function (event) {
     return wanderer.stopWandering(true);
 });
 container.addEventListener("mousemove", function (event) {
-    console.log("Stop");
     wanderer.stopWandering(true);
     perspective.drawSquare([event.pageX, event.pageY]);
 });
 container.addEventListener("mouseout", function (event) {
-    console.log("start");
     wanderer.startWandering(function (pos) {
         return perspective.drawSquare(pos);
     }, 2000, 500, [event.pageX, event.pageY]);
