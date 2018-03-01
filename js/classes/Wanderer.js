@@ -19,7 +19,6 @@ var Wanderer = (function () {
         this._alpha = 3; //Parameter of easing function
         this._distanceFromToToFrom; //Fun one to name
         this._delay;
-        console.log("WANDER");
     }
 
     _createClass(Wanderer, {
