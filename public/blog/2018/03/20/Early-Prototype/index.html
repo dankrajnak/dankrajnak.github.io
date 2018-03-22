@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Daniel Krajnak</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/a519a626be.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108070651-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108070651-1');
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+    <div id="full-height" style="min-height: 100%">
+        <!--    Navbar-->
+
+<nav class="navbar navbar-expand-md fixed-top navbar-inverse" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">Daniel Krajnak</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#art">Art</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contact">Contact</a>
+                </li>
+                <li class = "nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <div id ="navbar-spacer"></div>
+
+<article class="top-margin">
+    <div class="container back">
+        <div class="row">
+            <div class = "col">
+                <a href="\blog" id="back">&lt; Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container article-header">
+        <div class="row">
+            <div class="col-1">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-10">
+                <div class="article-header">
+                    <h1 class="article-title"> Early Prototype </h1>
+                    <div class="article-meta">
+                        <a href="/blog/2018/03/20/Early-Prototype/" class="article-date">
+  <time datetime="2018-03-20T15:40:22.000Z" itemprop="datePublished">March 20th, 2018</time>
+</a>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container article-body">
+        <div class="row">
+            <div class="col-md-2 col-lg-2">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="article-inner article-text">
+                    <p>Over the past week or so, I’ve been working on developing a small prototype of the art project I detailed in my last post.  After a bit of struggle, I set up a <strong>raspberry-pi-zero-w</strong> (<em>a small raspberry pi with wifi in the chip</em>) without a monitor.  I also set up a Microsfot Azure account.  They have a blob storage service which is perfect for storing the messages. I created a small program using Node.js to upload, download and delete messages from this service and installed it on my raspberry pi.  Now I have the capability to upload, download, and delete files from a raspberry pi to Microsoft’s distributed servers.</p>
+<p>I also created a web server using Node.js and Express.  Right now the only capability of the web server is to list the files in the <code>messages</code> container in the blob service.  It also creates a SAS (<em>Shared Access Signature</em>) token for each message, so that each listing on the website is linked to the file in the blob service.</p>
+<h2 id="The-Web-Server-and-Website"><a href="#The-Web-Server-and-Website" class="headerlink" title="The Web Server and Website"></a>The Web Server and Website</h2><p>Here’s the general file structure:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-app</span><br><span class="line">  -public</span><br><span class="line">  -server</span><br><span class="line">  -services</span><br><span class="line">  -views</span><br><span class="line">  index.js</span><br><span class="line">-build</span><br></pre></td></tr></table></figure></p>
+<p>All the files in <code>app</code> are processed and copied into <code>build</code>.  Javascript is transpiled from es6 to es5 and minified, css is concatenated and minified.</p>
+<p>The <code>public</code> folder contains static resources like css and client-side javascript.  It’s serverd statically with express.</p>
+<p>The <code>server</code> folder contains all the Node.js code to determine how the server responds to requests.</p>
+<p>The <code>services</code> folder contains services used by the server.  Namely, it contains a <code>MessageService</code> which provides methods to upload, delete, list, and get links to messages.</p>
+<p>The <code>views</code> folder contains all of the html for the website.  It’s written with embedded javascript so it can easily include data from the server.</p>
+<p><code>index.js</code> is the starting point for webpack, which bundles static resources.</p>
+<h2 id="Raspberry-Pi"><a href="#Raspberry-Pi" class="headerlink" title="Raspberry Pi"></a>Raspberry Pi</h2><p>The program installed on the raspberry pi is just a command-line version fo the <code>MessageService</code> on the web server.  It’s also written in javascript and run with node.js.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row article-footer">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</article>
+
+
+        <footer>
+    <div class="container d-flex">
+    <div class="row w-100 justify-content-end">
+        <div class="col-8">
+            Designed by Daniel Krajnak
+        </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+</body>
