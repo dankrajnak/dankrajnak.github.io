@@ -307,19 +307,27 @@ article {
         https://codepen.io/sdthornton/pen/wBZdXq
         */
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
-  .article-text figure.highlight td.code {
-    padding-left: 15px; }
-  .article-text figure.highlight .gutter {
-    display: none;
-    background-color: #e6e6e6; }
-  .article-text figure.highlight .string {
-    color: #6BAD56; }
-  .article-text figure.highlight .keyword {
-    color: #CCB255; }
-  .article-text figure.highlight .title {
+  .article-text code {
+    background-color: #f2f2f2;
     color: #AD4744; }
-  .article-text figure.highlight .params {
-    color: #537DAC; }
+  .article-text figure.highlight {
+    padding: 10px;
+    background-color: #f2f2f2; }
+    .article-text figure.highlight td.code {
+      padding-left: 15px; }
+      .article-text figure.highlight td.code pre {
+        margin-bottom: 0; }
+    .article-text figure.highlight .gutter {
+      display: none;
+      background-color: #e6e6e6; }
+    .article-text figure.highlight .string {
+      color: #6BAD56; }
+    .article-text figure.highlight .keyword {
+      color: #CCB255; }
+    .article-text figure.highlight .title {
+      color: #AD4744; }
+    .article-text figure.highlight .params {
+      color: #537DAC; }
   .article-text a {
     color: #2b2b2b;
     font-weight: bold; }
