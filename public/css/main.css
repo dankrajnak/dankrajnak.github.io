@@ -181,7 +181,8 @@ footer {
 .archive-header {
   display: flex;
   background: #CCB255;
-  height: 400px; }
+  height: 400px;
+  margin-bottom: 60px; }
   .archive-header h1 {
     align-self: center;
     margin: auto;
