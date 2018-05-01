@@ -2,6 +2,8 @@
 
 var typewriterText = ["Can websites be a form of art?", "Let's build something cool.", "Scroll down to see more.", "Can websites be a form of art?", "Wait, you're still reading?", "Well, I'm flattered.", "Thanks for riding it out to the end", "You should check out the song...", "'Jungle' by Tash Sultana", "Hopefully you like it!", "Hope you have a great day :)"];
 
+typewriterText = ["Unburdened and becoming.", "What might have been lost?"];
+
 var typewriter = new Typewriter(typewriterText, document.getElementById("typewriter"));
 setTimeout(function () {
     return typewriter.play();

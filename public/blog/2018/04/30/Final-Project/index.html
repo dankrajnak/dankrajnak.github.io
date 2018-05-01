@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Daniel Krajnak</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/a519a626be.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108070651-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108070651-1');
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+    <div id="full-height" style="min-height: 100%">
+        <!--    Navbar-->
+
+<nav class="navbar navbar-expand-md fixed-top navbar-inverse" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">Daniel Krajnak</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#art">Art</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contact">Contact</a>
+                </li>
+                <li class = "nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <div id ="navbar-spacer"></div>
+
+<article class="top-margin">
+    <div class="container back">
+        <div class="row">
+            <div class = "col">
+                <a href="\blog" id="back">&lt; Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container article-header">
+        <div class="row">
+            <div class="col-1">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-10">
+                <div class="article-header">
+                    <h1 class="article-title"> Final Project </h1>
+                    <div class="article-meta">
+                        <a href="/blog/2018/04/30/Final-Project/" class="article-date">
+  <time datetime="2018-05-01T00:07:26.000Z" itemprop="datePublished">April 30th, 2018</time>
+</a>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container article-body">
+        <div class="row">
+            <div class="col-md-2 col-lg-2">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="article-inner article-text">
+                    <img src="/blog/2018/04/30/Final-Project/first.jpg" title="Image of the final project">
+<h1 id="It’s-finally-done-and-I’m-excited-to-share-it"><a href="#It’s-finally-done-and-I’m-excited-to-share-it" class="headerlink" title="It’s finally done and I’m excited to share it."></a>It’s finally done and I’m excited to share it.</h1><p>As per my last post, I did have to trim the project down a bit.  As a result, I didn’t get as much interaction with my piece as I would have liked… but if I got it all right on my first go, I wouldn’t have learned anything, right? Since the last time I posted, I did a lot of work.  So, I want to share that with you first, then my installation and final reflections.</p>
+<h2 id="IotMonitor"><a href="#IotMonitor" class="headerlink" title="IotMonitor"></a>IotMonitor</h2><p>This was a pretty big endeavor. I created an application-independent node.js iot monitor. The code can be found <a href="https://github.com/dankrajnak/AzureIoTNodeMonitor" target="_blank" rel="noopener">here</a>.  IoTMonitor can easily be integrated into any node application.  It connects a device with the Azure IoT Hub, and makes it easy to monitor and manage the application remotely.  So, using IoTMonitor, every time the device I installed finishes playing a message, it sends a message to Azure IoT Hub with the name of the message it just finished playing.  It also verifies that it was able to contact the server to download new messages, and sends the names of the messages it’s getting ready to play.</p>
+<p>With a bit more work, I’ll be able to remotely turn the device off, and schedule it to wake up so that messages aren’t constantly playing.  I’ll also be able to update the code remotely, so if a bug is encountered, I can send out a quick patch without ever having to visit the exhibition.</p>
+<h2 id="The-Website"><a href="#The-Website" class="headerlink" title="The Website"></a>The Website</h2><p>In addition to a simplification of the design, I also found a few ways to make the website a lot more reliable.  Most notably, I figured out why some messages were being cut short on mobile phones and some computers.  It wasn’t because of a temporary disconnection from a websocket, <em>(although the code I wrote to solve that bug helped solve another bug—previously if someone was recording<br>a message and then closed the website prematurely, their incomplete message would still be stored)</em>. It was because audio was still being processed and hadn’t been sent yet.  This chunk of unprocessed audio was especially large on slower devices, like phones, and on long messages.</p>
+<p>I found a way to monitor and display how much audio still needed to be processed and sent to the server after a user pressed stop recording.  Previously, I had just been relying on people staying on the page for a bit after recording their message.</p>
+<p>In addition, most browsers require that a server be communicating in https to utilize the microphone.  I also realized that many people trying to access the website were given an intimidating “WEBSITE NOT SECURE” warning when the server tried to send them the website them using http when they requested in https.  After a lot of tinkering, I found a way to route my website through a service called Cloudflare to provide https certification with minimal changes to the server.  I also re-routed all http traffic to use https so that no silent errors will occur when people try to record a message.  So far, so good.</p>
+<h1 id="The-Installation"><a href="#The-Installation" class="headerlink" title="The Installation"></a>The Installation</h1><p>I repurposed an old box to house the Raspberry Pi.  I cut a hole through the bottom, and fed the power and headphones cable through it.  The box came with a false bottom, so I placed all the tech below the false bottom, and attached a definition of <em>Sonder</em> on top, which I felt concisely captured the message of my installation.  I configured the pi to connect to OSU’s Wifi and start the monitor and message player on start.  The only setup, then, is plugging it into the wall.  </p>
+<p>Here’s some pictures of what it looked like:</p>
+<img src="/blog/2018/04/30/Final-Project/second.jpg" title="Image of the final project">
+<img src="/blog/2018/04/30/Final-Project/third.jpg" title="Image of the final project">
+<img src="/blog/2018/04/30/Final-Project/fourth.jpg" title="Image of the final project">
+<p>Unfortunately (and kinda funnily),  I dropped the box while I was installing it, so there’s a slight chip next to the hinge.</p>
+<h1 id="What-I-learned"><a href="#What-I-learned" class="headerlink" title="What I learned"></a>What I learned</h1><p>Implementing this was not easy.  I ran into so many unforeseen problems, and spent most of my time iterating and adapting to new challenges.  I learned about websockets, node streams, the Azure IoT Suite, Azure Blob and App Services, and writing software for raspberry pis.  More importantly, I went through my first iteration of transforming an idea for an art piece into a physical installation.  I learned that creating an art and tech installation is hard and takes a lot of time, even for someone who has a pretty descent amount of experience programming.  I learned that it’s incredibly important to think about how people will interact with your installation, and to test that as soon as possible—make prototypes, tell people about your idea, validate your assumptions.  I learned it’s important to be really realistic about timeline and to allocate a lot of time for iterating, learning, and fixing mistakes.  I also learned that making something you care about is really, really fun.  I learned I liked doing this; and I learned, hopefully, that this won’t be my last venture into new media.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row article-footer">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</article>
+
+
+        <footer>
+    <div class="container d-flex">
+    <div class="row w-100 justify-content-end">
+        <div class="col-8">
+            Designed by Daniel Krajnak
+        </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+</body>

@@ -167,11 +167,11 @@ $font-size: 1.2em;
     }
     /*Links*/
     a {
-        color: lighten($background-color, 10);
-        font-weight: bold;
+        color: $primary-color;
+
 
         &:hover {
-            color: $primary-color;
+            text-decoration: underline;
         }
     }
 }

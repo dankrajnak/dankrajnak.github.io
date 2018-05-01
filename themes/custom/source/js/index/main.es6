@@ -4,6 +4,8 @@ let typewriterText = ["Can websites be a form of art?", "Let's build something c
                       "Hopefully you like it!",  "Hope you have a great day :)"
                      ]
 
+typewriterText = ['Unburdened and becoming.', 'What might have been lost?']
+
 let typewriter = new Typewriter(typewriterText, document.getElementById('typewriter'));
 setTimeout(()=>typewriter.play(), 500);
 

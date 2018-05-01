@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Daniel Krajnak</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/a519a626be.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108070651-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108070651-1');
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+    <div id="full-height" style="min-height: 100%">
+        <!--    Navbar-->
+
+<nav class="navbar navbar-expand-md fixed-top navbar-inverse" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">Daniel Krajnak</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#art">Art</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contact">Contact</a>
+                </li>
+                <li class = "nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <div id ="navbar-spacer"></div>
+
+<article class="top-margin">
+    <div class="container back">
+        <div class="row">
+            <div class = "col">
+                <a href="\blog" id="back">&lt; Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container article-header">
+        <div class="row">
+            <div class="col-1">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-10">
+                <div class="article-header">
+                    <h1 class="article-title"> First Critique </h1>
+                    <div class="article-meta">
+                        <a href="/blog/2018/04/13/First-Critique/" class="article-date">
+  <time datetime="2018-04-13T04:42:05.000Z" itemprop="datePublished">April 12th, 2018</time>
+</a>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container article-body">
+        <div class="row">
+            <div class="col-md-2 col-lg-2">
+                <!--Bootstrap's .offset-1 wasn't working :(  -->
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="article-inner article-text">
+                    <p>I’ve spent the better part of the last few days building <a href="https://heartfelt-installation.azurewebsites.net" target="_blank" rel="noopener">this website</a>.  I encountered a lot of problems, and it’s still not done, but, for now, the website is capable of recording, streaming, and encoding audio from a device to a database.  The really cool thing about this is that it’s all done simultaneously.  While your phone or computer is recording your audio, it is simultaneously sending it to the web-server which is processing it and streaming it to a database.  To show you just all the different steps that went into this, here’s a brief rundown of what I did.  I may write a quick tutorial for this in the future.  I ended up having to do a lot of scavenging around the internet to figure everything out.</p>
+<h2 id="Stage-1-—-Listing-the-messages-on-the-website"><a href="#Stage-1-—-Listing-the-messages-on-the-website" class="headerlink" title="Stage 1 — Listing the messages on the website"></a>Stage 1 — Listing the messages on the website</h2><p>About three weeks ago, I started work on the website.  I already had implemented a message service in Node.js which was able to upload, delete, and list messages.  I needed to write a server to provide this service.  Fittingly, I wrote the server with Node.js and Express.<br>It looked something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//Get root</span><br><span class="line">app.get(&apos;/&apos;, (req, res)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    messageService.createContainer().then(() =&gt;&#123;</span><br><span class="line">      messageService.list().then((lis) =&gt; &#123;</span><br><span class="line">        // Message names are stored as the number of miliseconds since</span><br><span class="line">        // January 1st, 1970 to when the message was created.  We can use this</span><br><span class="line">        //  to sort them based on their creation time.</span><br><span class="line">        lis.data.entries.sort((a, b)=&gt;&#123;</span><br><span class="line">          return parseInt(b.name.slice(0, -4)) - parseInt(a.name.slice(0, -4));</span><br><span class="line">        &#125;);</span><br><span class="line">        let messages = lis.data.entries.map((entry, index)=&gt; (&#123;</span><br><span class="line">            name: `Message $&#123;lis.data.entries.length - index&#125;`,</span><br><span class="line">            link: messageService.getUri(entry.name).uri</span><br><span class="line">          &#125;));</span><br><span class="line">        res.render(&apos;index&apos;, &#123;messages: messages&#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Message objects are sent as objects to an ejs template.  Additionally, a shared access token is generated for each message.  Pretty cool.</p>
+<h2 id="Stage-2-—-Recording-Messages"><a href="#Stage-2-—-Recording-Messages" class="headerlink" title="Stage 2 — Recording Messages"></a>Stage 2 — Recording Messages</h2><p>Audio recording and processing on websites has come a long way.  It’s now possible to make <code>getUserMedia</code> requests to gain access to the microphone or camera.  Then, an <code>AudioContext</code> can be created to stream, save, and process audio.  Now, I have a feeling I did this in kind of a dumb way.  I added a <code>scriptProcessor</code> to <code>AudioContext</code> which sends that data to a <code>BinarySend</code> service I coded.  Looking back, what should probably have happened is passing an audio stream into <code>BinarySend</code> instead of implementing my own stream (as we’ll see later).</p>
+<p>I also tried utilizing <code>recorder.js</code>, which can  encode audio to the <code>.wav</code> format.  Instead, I moved this encoding to the server and (with the huge help of some online tutorials).</p>
+<p>This audio is streamed to the web server using Web Sockets.  Originally, I tried to just use the native Web Socket API on the client side, and the <code>ws</code> node package on the server side.  The webserver then would encode the audio to a <code>.wav</code> file using the <code>wav</code> node package and then stream that file to the database.</p>
+<h2 id="Stage-3-—-Putting-it-all-online"><a href="#Stage-3-—-Putting-it-all-online" class="headerlink" title="Stage 3 — Putting it all online"></a>Stage 3 — Putting it all online</h2><p>I had to change a ton to put this all online.  I deployed this using Azure.  In order for my web app to start, the file <code>build/app/server/index.js</code> needed to be run.  Additionally all requests for static resources needed to be directed to my <code>build/public</code> folder.  While Microsoft had a tutorial on how to deploy a basic web app, they had no documentation on how a node app is actually run by azure.  I had to figure this out using other tutorials.  Eventually I came across <code>Kudu</code>, which is the engine which Azure uses to run a node app when it’s deployed using Git.  With the help of a tutorial which I will try to find and link to later, I created a few extra files—<code>web.config</code>, <code>.deployment</code>, <code>deploy.cmd</code>, to customize the deployment.  This worked, and after adding my credentials to my blob service as a environment variable, my website was running online without errors.</p>
+<p>However, I realized that web sockets could not work in quite the same way on Azure’s servers as they had on my computer.  The biggest problem was that in my implementation, it was necessary that the web sockets connect to server on a separate port.  This was not possible with Azure.  So, I reimplemented both the client and server side to use <code>Socket.io</code>—a really robust web sockets library. I also had to use <code>socket.io-stream</code> to send a stream over the web sockets.  </p>
+<p>After I had finished implementing this, I was able to create a web socket connection with the server.  However, when the audio was written to file on the web server, it was not shared amongst all instances of the web app.  So, when the web server went to send the file to the database, it couldn’t find it.  I needed to find some way to stream the file directly to the database without creating a file.  Luckily, Microsoft offers this capability as part of their blob service.  So, after some refactoring, I was able to stream directly to the service.</p>
+<h2 id="What-still-needs-to-be-done"><a href="#What-still-needs-to-be-done" class="headerlink" title="What still needs to be done:"></a>What still needs to be done:</h2><p>On some connections, messages are cut short.  I have a feeling this has to do with a temporary disconnection from the web socket.  The server assumes that the audio is finished and ends the stream to the database.  I will have to implement a way to handle this.  I have a few ideas, but it will definitely take some tinkering.</p>
+<p>It might be good to put a reCAPTCHA on the record button, so that it would not be possible for a bot to record a bunch of messages.</p>
+<p>The website also needs to be slightly redesigned.  It looks ok right now, but it could be a lot better.</p>
+<p>Because this took so long, I’m having to simplify my project a bit.  I don’t think I’ll have time to add the phone.  So, the hardware-component of the project will be a raspberry pi which will download and queue the messages and play them through a set of headphones.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row article-footer">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</article>
+
+
+        <footer>
+    <div class="container d-flex">
+    <div class="row w-100 justify-content-end">
+        <div class="col-8">
+            Designed by Daniel Krajnak
+        </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+</body>

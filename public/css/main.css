@@ -330,10 +330,9 @@ article {
     .article-text figure.highlight .params {
       color: #537DAC; }
   .article-text a {
-    color: #2b2b2b;
-    font-weight: bold; }
+    color: #CCB255; }
     .article-text a:hover {
-      color: #CCB255; }
+      text-decoration: underline; }
 
 .stub {
   margin-top: 20px; }
